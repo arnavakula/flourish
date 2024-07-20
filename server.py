@@ -8,6 +8,8 @@ from constants import CLASS_NAMES
 
 app = FastAPI()
 
+endpoint = 'http//localhost:8501/v1/models/models:predict'
+
 model = load_model('./cnn-models/best_model.keras')
 
 @app.get('/')
