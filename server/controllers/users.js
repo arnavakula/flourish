@@ -11,6 +11,7 @@ module.exports.register = async (req, res, next) => {
                 res.status(500).json({ message: 'Error registering user', error: err.message });
                 return next(err);
             }
+            req.session.user = username;
             res.status(201).json({ message: 'User registered successfully', user: registeredUser });
         })
 
@@ -20,8 +21,23 @@ module.exports.register = async (req, res, next) => {
 }
 
 module.exports.login = async (req, res) => {
-    res.status(200).json({ message: 'Successfully logged in' })
+    req.session.user = req.body.username;
+    res.status(200).json({ message: 'Successfully logged in', user: req.session.user });
 }
 
-//login
-//logout
+module.exports.logout = async (req, res) => {
+    req.logout(function (err) {
+        if (err) {
+            return next(err);
+        }
+        res.status(200).json({ success: true });
+    });
+}
+
+module.exports.status = async (req, res) => {
+    if (req.isAuthenticated()) {
+        res.status(200).json({ authenticated: true, user: req.session.user });
+    } else {
+        res.status(200).json({ authenticated: false });
+    }
+};

@@ -4,11 +4,12 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./models/user');
 const session = require('express-session');
+const cors = require('cors');
 
 const userRoutes = require('./routes/userRoutes');
 
 const dbUrl ='mongodb://127.0.0.1:27017/plantDisease';
-const port = 3000;
+const port = 8000;
 
 app = express();
 
@@ -18,6 +19,12 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', () => {
     console.log('database connected');
 });
+
+app.use(express.static('public'));
+app.use(cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+}));
 
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json());
@@ -30,7 +37,8 @@ app.use(session({
     cookie: { 
         httpOnly: true,
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
-        maxAge: 1000 * 60 * 60 * 24 * 7 
+        maxAge: 1000 * 60 * 60 * 24 * 7,
+        secure: false 
     }
   }))
 
