@@ -1,26 +1,27 @@
 const User = require('../models/user');
 
-module.exports.register = async (req, res) => {
+module.exports.register = async (req, res, next) => {
     try {
-        
         const { first, last, email, username, password } = req.body;
-        const user = new User(req.body);
-        const registeredUser = await User.register(first, last, );
-
+        const user = new User({ first, last, email, username });
+        const registeredUser = await User.register(user, password);
 
         req.login(registeredUser, err => {
             if(err){
-                console.log(err);
+                res.status(500).json({ message: 'Error registering user', error: err.message });
                 return next(err);
             }
-            res.json({ username, password })
+            res.status(201).json({ message: 'User registered successfully', user: registeredUser });
         })
 
-    } catch(e) {
-        res.status(400).send(e);
+    } catch(err) {
+        res.status(400).json({ message: 'Error registering user', error: err.message });
     }
 }
 
-//register
+module.exports.login = async (req, res) => {
+    res.status(200).json({ message: 'Successfully logged in' })
+}
+
 //login
 //logout
