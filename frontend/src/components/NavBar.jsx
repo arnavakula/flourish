@@ -49,7 +49,7 @@ const NavBar = () => {
                 (
                     <ul className="flex flex-row gap-[2em] ml-auto">
                     <li><Link to='/login'>Login</Link></li>
-                    <li><a href='#'>Register</a></li>
+                    <li><Link to='/register'>Register</Link></li>
                 </ul>
                 )
             }
