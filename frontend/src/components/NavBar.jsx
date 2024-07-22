@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const NavBar = () => {
     const { authUser, setAuthUser, isLoggedIn, setIsLoggedIn } = useAuth();
@@ -14,10 +15,6 @@ const NavBar = () => {
 
             setIsLoggedIn(true);
             setAuthUser(response.data.user);
-
-            const temp = await axios.get('http://localhost:8000/user/status', { withCredentials: true });
-            console.log(temp.data.user);
-
         } catch (error) {
             console.error('Login error:', error);
         }
@@ -51,7 +48,7 @@ const NavBar = () => {
                 ) :
                 (
                     <ul className="flex flex-row gap-[2em] ml-auto">
-                    <li><a onClick={handleLogin} href='#'>Login</a></li>
+                    <li><Link to='/login'>Login</Link></li>
                     <li><a href='#'>Register</a></li>
                 </ul>
                 )
