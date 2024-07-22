@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
 import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const NavBar = () => {
     const { authUser, setAuthUser, isLoggedIn, setIsLoggedIn } = useAuth();
+    const navigate = useNavigate();
 
     const handleLogin = async () => {
         try {
@@ -30,15 +31,23 @@ const NavBar = () => {
         } catch (err){
             console.log(err);
         }
+    };
+
+    const openDashboard = () => {
+        if(isLoggedIn){
+            navigate('/dashboard');
+        } else {
+            navigate('/login');
+        }
     }
 
     return (
         <nav className="w-[100vw] border flex flex-row">
             <h2 className="mx-[4em]">Flourish</h2>
             <ul className="flex flex-row gap-[2em]">
-                <li><a href='#'>Home</a></li>
-                <li><a href='#'>About Us </a></li>
-                <li><a href='#'>Dashboard</a></li>
+                <li><Link to='/'>Home</Link></li>
+                <li><Link to='/about'>About Us </Link></li>
+                <li onClick={openDashboard}className='cursor-pointer'>Dashboard</li>
             </ul>
 
             {isLoggedIn ? ( 
