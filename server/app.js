@@ -1,3 +1,6 @@
+require('dotenv').config();
+
+
 const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
@@ -7,6 +10,7 @@ const session = require('express-session');
 const cors = require('cors');
 
 const userRoutes = require('./routes/userRoutes');
+const plantRoutes = require('./routes/plantRoutes');
 
 const dbUrl ='mongodb://127.0.0.1:27017/plantDisease';
 const port = 8000;
@@ -52,6 +56,7 @@ passport.deserializeUser(User.deserializeUser());
 
 
 app.use('/user', userRoutes);
+app.use('/plant', plantRoutes);
 
 app.all('*', (req, res, next) => {
     console.log('FALLBACK ERROR');
