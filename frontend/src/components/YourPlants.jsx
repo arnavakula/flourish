@@ -6,7 +6,8 @@ import { useState } from 'react';
 const YourPlants = () => {
     const [image, setImage] = useState(null);
     const { authUser, isLoggedIn } = useAuth();
-    console.log(isLoggedIn);
+
+    console.log(authUser);
 
     const handleFileChange = async (evt) => {
         setImage(evt.target.files[0])
@@ -19,7 +20,7 @@ const YourPlants = () => {
         } else {
             const formData = new FormData();
             formData.append('image', image);
-            formData.append('user', JSON.stringify(authUser));
+            formData.append('user', authUser);
             
             try {
                 const response = await fetch('http://localhost:8000/plant/upload', {

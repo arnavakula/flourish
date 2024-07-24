@@ -20,6 +20,7 @@ const LoginForm = () => {
 
             setIsLoggedIn(true);
             setAuthUser(response.data.user);
+            console.log(response.data.user);
             navigate('/dashboard');
         } catch(err) {
             console.error('Login error:', err);

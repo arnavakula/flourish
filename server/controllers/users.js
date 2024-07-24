@@ -11,8 +11,8 @@ module.exports.register = async (req, res, next) => {
                 res.status(500).json({ message: 'Error registering user', error: err.message });
                 return next(err);
             }
-            req.session.user = username;
-            res.status(201).json({ message: 'User registered successfully', user: registeredUser });
+            req.session.user = registeredUser._id;
+            res.status(201).json({ message: 'User registered successfully', user: registeredUser._id });
         })
 
     } catch(err) {
@@ -21,8 +21,9 @@ module.exports.register = async (req, res, next) => {
 }
 
 module.exports.login = async (req, res) => {
-    req.session.user = req.body.username;
-    res.status(200).json({ message: 'Successfully logged in', user: req.session.user });
+    const user = await User.findOne({username: req.body.username });
+    req.session.user = user._id;
+    res.status(200).json({ message: 'Successfully logged in', user: user._id });
 }
 
 module.exports.logout = async (req, res) => {
