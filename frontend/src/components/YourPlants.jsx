@@ -1,6 +1,40 @@
 import { Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import axios from 'axios';
+import { useState } from 'react';
 
 const YourPlants = () => {
+    const [image, setImage] = useState(null);
+    const { authUser, isLoggedIn } = useAuth();
+    console.log(isLoggedIn);
+
+    const handleFileChange = async (evt) => {
+        setImage(evt.target.files[0])
+    }
+
+    const handleSubmit = async (evt) => {
+        evt.preventDefault();
+        if(!isLoggedIn){
+            alert('must be logged in!');
+        } else {
+            const formData = new FormData();
+            formData.append('image', image);
+            formData.append('user', JSON.stringify(authUser));
+            
+            try {
+                const response = await fetch('http://localhost:8000/plant/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+                const result = await response.json();
+                console.log(result);    
+                
+            } catch(err){
+                console.log(err);
+            }
+        }
+    }
+
     return (
         <>
             <div className='w-[100vw] border h-[6vh] flex items-center justify-center'>
@@ -11,7 +45,11 @@ const YourPlants = () => {
                 <div className='h-[100%] w-[25%] p-4 border flex flex-col'>
                     <h2 className='text-center'>Your Plants</h2>
 
-                    <Link className='text-center mt-[auto] mb-[5vh] text-slate-800' to='/upload-plant' ><h2>+ Add Plant</h2></Link>
+                    <form onSubmit={handleSubmit} encType='multipart/form-data'>
+                        <input onChange={handleFileChange} type='file' name='image' />
+                        <button>Add Plant</button>
+
+                    </form>
                 </div>
                 <div className='h-[100%] w-[75%] border'>
                     <h2 className='text-center'>Plants</h2>

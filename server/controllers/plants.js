@@ -6,13 +6,15 @@ const upload = require('../aws/index');
 
 module.exports.addPlant = async (req, res) => {
     try {
-        const plant = new Plant({ location: req.file.location, author: req.session.user });
+        const plant = new Plant({ location: req.file.location, author: JSON.parse(req.body.user) });
         await plant.save();
-        console.log(req.file.location);
-        res.status(200).json({message: 'success'})
+        res.status(200).json({message: 'add plant success'})
     } catch(err) {
         res.json({error: err});
     }
 }
 
+module.exports.getUserPlants = async (req, res) => {
+
+}
 
