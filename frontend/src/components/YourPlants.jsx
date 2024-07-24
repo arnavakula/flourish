@@ -1,13 +1,31 @@
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const YourPlants = () => {
     const [image, setImage] = useState(null);
+    const [plants, setPlants] = useState([]);
     const { authUser, isLoggedIn } = useAuth();
 
+    if(plants.length > 0){
+        console.log(plants[0].location);
+    }
+
     console.log(authUser);
+
+    useEffect(() => {
+        if(authUser) {
+            const loadPlants = async () => {
+                const response = await fetch(`http://localhost:8000/user/plants/${authUser}`, {
+                    method: 'GET'
+                })
+                .then(response => response.json())
+                .then(data => setPlants(data.plants));
+            }    
+            loadPlants();
+        }
+    }, [])
 
     const handleFileChange = async (evt) => {
         setImage(evt.target.files[0])
@@ -23,13 +41,18 @@ const YourPlants = () => {
             formData.append('user', authUser);
             
             try {
-                const response = await fetch('http://localhost:8000/plant/upload', {
+                const uploadRes = await fetch('http://localhost:8000/plant/upload', {
                     method: 'POST',
                     body: formData
                 });
-                const result = await response.json();
-                console.log(result);    
                 
+                
+                const plantRes = await fetch(`http://localhost:8000/user/plants/${authUser}`, {
+                    method: 'GET'
+                })
+                .then(response => response.json())
+                .then(data => setPlants(data.plants));
+            
             } catch(err){
                 console.log(err);
             }
@@ -54,6 +77,10 @@ const YourPlants = () => {
                 </div>
                 <div className='h-[100%] w-[75%] border'>
                     <h2 className='text-center'>Plants</h2>
+                    {plants.map((plant, i) => (
+                        <img src={plant.location} />
+                    ))}
+
                 </div>
 
 

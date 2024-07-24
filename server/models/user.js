@@ -17,7 +17,7 @@ const UserSchema = new mongoose.Schema({
     plants: [
         {
             type: mongoose.Schema.ObjectId,
-            ref: 'Review'
+            ref: 'Plant'
         }
     ]
 });

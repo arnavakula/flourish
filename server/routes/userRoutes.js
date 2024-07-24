@@ -16,4 +16,7 @@ router.route('/logout')
 router.route('/status')
     .get(users.status)
 
+router.route('/plants/:id')
+    .get(users.getPlants)
+
 module.exports = router;

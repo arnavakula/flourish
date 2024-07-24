@@ -42,3 +42,9 @@ module.exports.status = async (req, res) => {
         res.status(200).json({ authenticated: false });
     }
 };
+
+module.exports.getPlants = async (req, res) => {
+    const { id } = req.params;
+    const user = await User.findById(id).populate({path: 'plants'});
+    res.json({plants: user.plants});
+}
