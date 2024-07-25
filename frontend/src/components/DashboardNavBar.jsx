@@ -7,7 +7,7 @@ const DashboardNavBar = ({ tabs, currTab, setCurrTab }) => {
     }
 
     return (
-        <div className="flex w-[100vw] h-[15vh]">
+        <div className="flex w-[100vw] min-h-[15vh]">
             <div style={{borderBottom: '1px solid gray'}} className="w-[25%] flex items-center justify-center">
                 <h2>Flourish Dashboard</h2>
             </div>

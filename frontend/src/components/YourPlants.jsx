@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import axios from 'axios';
 import { useState, useEffect } from 'react';
 
 const YourPlants = () => {
@@ -17,6 +16,7 @@ const YourPlants = () => {
     useEffect(() => {
         if(authUser) {
             const loadPlants = async () => {
+                console.log('hello');
                 const response = await fetch(`http://localhost:8000/user/plants/${authUser}`, {
                     method: 'GET'
                 })
@@ -25,7 +25,7 @@ const YourPlants = () => {
             }    
             loadPlants();
         }
-    }, [])
+    }, [authUser])
 
     const handleFileChange = async (evt) => {
         setImage(evt.target.files[0])
@@ -75,10 +75,11 @@ const YourPlants = () => {
 
                     </form>
                 </div>
-                <div className='h-[100%] w-[75%] border'>
-                    <h2 className='text-center'>Plants</h2>
+                <div className='h-[100%] w-[75%] border grid grid-cols-2 overflow-y-scroll h-screen'>
                     {plants.map((plant, i) => (
-                        <img src={plant.location} />
+                        <div key={i} className='border relative pb-[100%]'>
+                            <img className='absolute top-0 left-0 w-full h-full object-cover' src={plant.location} alt={`Plant ${i}`} />
+                        </div>
                     ))}
 
                 </div>

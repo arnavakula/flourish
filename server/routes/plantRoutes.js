@@ -6,7 +6,10 @@ const { isLoggedIn } = require('../middleware/users');
 const router = express.Router();
 
 router.route('/upload')
-    // .post(upload.single('image'), plants.addPlant)
     .post(upload.single('image'), plants.addPlant);
+
+router.route('/')
+    .get(plants.getAllPlants)
+
 
 module.exports = router;

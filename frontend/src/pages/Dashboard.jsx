@@ -3,7 +3,7 @@ import DashboardNavBar from '../components/DashboardNavBar';
 import DashboardBody from '../components/DashboardBody';
 
 const Dashboard = () => {
-    const tabs = ['Your Plants', 'Popular', 'All Plants', 'Calendar', 'Community'];
+    const tabs = ['Your Plants', 'All Plants', 'Calendar', 'Community'];
     const [currTab, setCurrTab] = useState(tabs[0]);
 
     return (
