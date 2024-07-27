@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import GrassIcon from '@mui/icons-material/Grass';
 
+const formatTabName = (tab) => {
+    return tab.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+};
+
 
 const DashboardNavBar = ({ tabs, currTab, setCurrTab }) => {
     const handleTabClick = (evt) => {
@@ -20,7 +24,7 @@ const DashboardNavBar = ({ tabs, currTab, setCurrTab }) => {
                         id={tab} 
                         onClick={handleTabClick}
                         className={`w-[10%] flex items-center justify-center cursor-pointer ${currTab === tab ? 'text-white border-b-[3px] border-[#f3563e]' : ''}`}>
-                            {tab}
+                            {formatTabName(tab)}
                     </div>
                     
                 )}

@@ -18,8 +18,8 @@ const Community = () => {
                 <p className='font-bold'>Temp Temp</p>
             </div>
         </div>
-        <div className='w-[100vw] h-full'>
-            <div className='w-[20%] h-[100%]'>
+        <div className='w-[100vw] h-[100%] border-2 border-green-800 flex flex-row'>
+            <div className='LEFT-BAR w-[20%] h-[100%]'>
                 <div className='w-[100%] h-[15%] flex flex-col justify-start gap-[2px] mt-[1vh]'>
                     <button 
                         className={`rounded-lg w-[60%] flex-1 mx-auto ${tab === 'All' ? 'bg-[#bbb0b8]' : ''}`} 
@@ -45,7 +45,15 @@ const Community = () => {
                     </button>
                 </div>
             </div>
-            
+            <div className='CENTER-CONTENT w-[80%] h-[100%] border'>
+                <div className='w-[80%] mt-[1vh] rounded-3xl border mx-auto h-[100%]'>
+
+                </div>
+            </div>
+            <div className='w-[20%] h-[100%] border'>
+
+            </div>
+
         </div>
         </>
     );

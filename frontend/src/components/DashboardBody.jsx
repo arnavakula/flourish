@@ -8,11 +8,11 @@ import Community from './Community';
 const DashboardBody = ({ currTab }) => {
     const renderContent = () => {
         switch(currTab) {
-            case 'Your Plants':
+            case 'your-plants':
                 return <YourPlants />
-            case 'All Plants':
+            case 'all-plants':
                 return <AllPlants />
-            case 'Community':
+            case 'community':
                 return <Community />
         }
     }

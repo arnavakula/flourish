@@ -11,6 +11,7 @@ const cors = require('cors');
 
 const userRoutes = require('./routes/userRoutes');
 const plantRoutes = require('./routes/plantRoutes');
+const postRoutes = require('./routes/postRoutes');
 
 const dbUrl ='mongodb://127.0.0.1:27017/plantDisease';
 const port = 8000;
@@ -57,6 +58,7 @@ passport.deserializeUser(User.deserializeUser());
 
 app.use('/user', userRoutes);
 app.use('/plant', plantRoutes);
+app.use('/post', postRoutes);
 
 app.all('*', (req, res, next) => {
     console.log('FALLBACK ERROR');

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const PostSchema = new mongoose.Schema({
-    body: {
+    text: {
         type: String,
         required: true
     },
@@ -15,13 +15,15 @@ const PostSchema = new mongoose.Schema({
     }],
     tag: {
         type: String,
-        enum: ['Question', 'Advice', 'Discussion', 'Help Needed']
+        enum: ['None', 'Question', 'Advice', 'Discussion', 'Help Needed']
     },
     likes: {
-        type: Number
+        type: Number,
+        default: 0
     },
     dislikes: {
-        type: Number
+        type: Number,
+        default: 0
     },
     date: {
         type: Date,

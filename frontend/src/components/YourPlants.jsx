@@ -7,16 +7,9 @@ const YourPlants = () => {
     const [plants, setPlants] = useState([]);
     const { authUser, isLoggedIn } = useAuth();
 
-    if(plants.length > 0){
-        console.log(plants[0].location);
-    }
-
-    console.log(authUser);
-
     useEffect(() => {
         if(authUser) {
             const loadPlants = async () => {
-                console.log('hello');
                 const response = await fetch(`http://localhost:8000/user/plants/${authUser}`, {
                     method: 'GET'
                 })

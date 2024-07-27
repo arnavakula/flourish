@@ -19,6 +19,18 @@ const UserSchema = new mongoose.Schema({
             type: mongoose.Schema.ObjectId,
             ref: 'Plant'
         }
+    ],
+    posts: [
+        {
+            type: mongoose.Schema.ObjectId,
+            ref: 'Post'
+        }
+    ],
+    comments: [
+        {
+            type: mongoose.Schema.ObjectId,
+            ref: 'Comment'
+        }
     ]
 });
 

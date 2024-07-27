@@ -7,8 +7,6 @@ const AllPlants = () => {
     const [plants, setPlants] = useState([]);
     const { authUser, isLoggedIn } = useAuth();
 
-    console.log(plants);
-
     useEffect(() => {
         if(authUser) {
             const loadPlants = async () => {
