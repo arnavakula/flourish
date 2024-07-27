@@ -1,10 +1,24 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import SignalCellularAltIcon from '@mui/icons-material/SignalCellularAlt';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import AddIcon from '@mui/icons-material/Add';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Community = () => {
-    const [tab, setTab] = useState('All');
+    const tabs = ['view', 'create', 'edit']
+    const location = useLocation();
+    const navigate = useNavigate();
+    const [tab, setTab] = useState(location.pathname.split('/').pop());
+
+    useEffect(() => {
+        if(location.pathname === '/dashboard/community/' || location.pathname === '/dashboard/community' || !tabs.includes(tab)){
+            navigate('/dashboard/community/view');
+        }
+    }, [tab])
+    
+
+    console.log(location.pathname);
+    console.log(tab);   
     
     const handleTabChange = (newTab) => {
         setTab(newTab);

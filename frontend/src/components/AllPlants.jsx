@@ -10,7 +10,6 @@ const AllPlants = () => {
     useEffect(() => {
         if(authUser) {
             const loadPlants = async () => {
-                console.log('hello');
                 const response = await axios.get(`http://localhost:8000/plant`, { withCredentials: true })
                 setPlants(response.data.plants);
             }    

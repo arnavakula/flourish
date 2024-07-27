@@ -20,7 +20,7 @@ function App() {
             <Route path='/login' element={ <Login /> } />
             <Route path='/register' element={ <Register /> } />
             <Route path='/dashboard' element={<Navigate to='/dashboard/your-plants' />}/>
-            <Route path='/dashboard/:tab' element={ <Dashboard /> } />
+            <Route path='/dashboard/:tab/*' element={ <Dashboard /> } />
           </Routes>
         </AuthProvider>
       </BrowserRouter>
