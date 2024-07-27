@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import GrassIcon from '@mui/icons-material/Grass';
 
 
 const DashboardNavBar = ({ tabs, currTab, setCurrTab }) => {
@@ -7,30 +8,22 @@ const DashboardNavBar = ({ tabs, currTab, setCurrTab }) => {
     }
 
     return (
-        <div className="flex w-[100vw] min-h-[15vh]">
-            <div style={{borderBottom: '1px solid gray'}} className="w-[25%] flex items-center justify-center">
-                <h2>Flourish Dashboard</h2>
+        <div className="flex w-[100vw] min-h-[8vh] bg-[#492b40] border-b-[0.5px] border-slate-200 ">
+            <div className="w-[20%] flex items-center justify-center text-[1.5rem] text-white font-black antialiased">
+                <GrassIcon className='mr-[5px]'/>
+                <h2>Flourish</h2>
             </div>
-            <div className="dashboard-nav-element w-[50%] flex">
+            <div className="dashboard-nav-element w-[60%] flex justify-center gap-[4%] font-light text-[#bbb0b8]">
                 {tabs.map((tab, i) => 
                     <div 
                         key={i} 
                         id={tab} 
                         onClick={handleTabClick}
-                        style={{
-                            borderLeft: '1px solid gray', 
-                            borderBottom: '1px solid gray',
-                            backgroundColor: currTab === tab ? '#36604c' : 'white',
-                            color: currTab === tab ? 'white' : 'black',
-                        }} 
-                        className="flex-1 flex items-center justify-center cursor-pointer ">
+                        className={`w-[10%] flex items-center justify-center cursor-pointer ${currTab === tab ? 'text-white border-b-[3px] border-[#f3563e]' : ''}`}>
                             {tab}
                     </div>
                     
                 )}
-            </div>
-            <div style={{borderBottom: '1px solid gray', borderLeft: '1px solid gray'}} className="w-[25%] p-4">
-                
             </div>
         </div>
     );
