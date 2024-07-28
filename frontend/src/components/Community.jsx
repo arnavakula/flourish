@@ -2,28 +2,25 @@ import { useState, useEffect } from 'react';
 import SignalCellularAltIcon from '@mui/icons-material/SignalCellularAlt';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import AddIcon from '@mui/icons-material/Add';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useSearchParams, redirect, Link, Outlet } from 'react-router-dom';
 
 const Community = () => {
-    const tabs = ['view', 'create', 'edit']
+    const tabs = ['view', 'create'];
     const location = useLocation();
-    const navigate = useNavigate();
-    const [tab, setTab] = useState(location.pathname.split('/').pop());
+    const [tab, setTab] = useState('');
+
+    const [searchParams, setSearchParams] = useSearchParams();
 
     useEffect(() => {
-        if(location.pathname === '/dashboard/community/' || location.pathname === '/dashboard/community' || !tabs.includes(tab)){
-            navigate('/dashboard/community/view');
+        const newTab = location.pathname.split('/').pop();
+        if(tabs.includes(newTab)){
+            setTab(newTab);
+        } else {
+            setTab('view');
         }
-    }, [tab])
-    
+    })
 
-    console.log(location.pathname);
-    console.log(tab);   
-    
-    const handleTabChange = (newTab) => {
-        setTab(newTab);
-    };
-    
+
     return (
         <>
         <div className="flex w-[100vw] min-h-[14vh] bg-[#492b40] border-b-[0.5px] text-[#bbb0b8]">
@@ -35,34 +32,26 @@ const Community = () => {
         <div className='w-[100vw] h-[100%] border-2 border-green-800 flex flex-row'>
             <div className='LEFT-BAR w-[20%] h-[100%]'>
                 <div className='w-[100%] h-[15%] flex flex-col justify-start gap-[2px] mt-[1vh]'>
-                    <button 
-                        className={`rounded-lg w-[60%] flex-1 mx-auto ${tab === 'All' ? 'bg-[#bbb0b8]' : ''}`} 
-                        onClick={() => handleTabChange('All')}
-                    >
-                        <span className='flex justify-center gap-[8px]'><SignalCellularAltIcon /> All</span>
-                    </button>
-                    <button 
-                        className={`rounded-lg w-[60%] flex-1 mx-auto ${tab === 'Popular' ? 'bg-[#bbb0b8]' : ''}`} 
-                        onClick={() => handleTabChange('Popular')}
-                    >
-                        <span className='flex justify-center gap-[8px]'><TrendingUpIcon />  Popular</span>
-                    </button>
+                    <Link to='/dashboard/community/view?sort=all' className={`mx-auto border text-center item-center rounded-lg w-[60%] ${tab === 'view' ? 'bg-[#bbb0b8]' : ''}`}>
+                        <button className='w-[100%] h-[100%]'>
+                            <span className='flex justify-center gap-[8px]'><SignalCellularAltIcon /> All</span>
+                        </button>
+                    </Link>
+
                 
                 </div>
                 <hr className='my-3 w-[75%] mx-auto '/>
                 <div className='w-[100%] h-[7.5%] flex flex-col justify-start rounded-lg gap-[2px]'>
                     <button 
                         className={`rounded-lg w-[60%] flex-1 mx-auto ${tab === 'Create a Post' ? 'bg-[#bbb0b8]' : ''}`} 
-                        onClick={() => handleTabChange('Create a Post')}
+                        onClick={() => handleTabChange('create')}
                     >
                         <span className='flex justify-center gap-[8px]'><AddIcon />  Create a Post</span>
                     </button>
                 </div>
             </div>
             <div className='CENTER-CONTENT w-[80%] h-[100%] border'>
-                <div className='w-[80%] mt-[1vh] rounded-3xl border mx-auto h-[100%]'>
-
-                </div>
+                <Outlet />
             </div>
             <div className='w-[20%] h-[100%] border'>
 

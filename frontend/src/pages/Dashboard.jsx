@@ -1,32 +1,29 @@
 import { useState, useEffect } from 'react';
 import DashboardNavBar from '../components/DashboardNavBar';
 import DashboardBody from '../components/DashboardBody';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Outlet, useLocation } from 'react-router-dom';
 
 
 
 const Dashboard = () => {
     const tabs = ['your-plants', 'popular', 'all-plants', 'calendar', 'community'];
-    const [currTab, setCurrTab] = useState('your-plants');
-    const { tab } = useParams();
-    const navigate = useNavigate();
+    const location = useLocation();
+    const [currTab, setCurrTab] = useState('');
 
     useEffect(() => {
-        if (!tabs.includes(tab)) {
-            navigate('/dashboard/your-plants');
+        const newTab = location.pathname.split('/').pop();
+        if(tabs.includes(newTab)){
+            setCurrTab(newTab);
         } else {
-            setCurrTab(tab);
+            setCurrTab('your-plants')
         }
-    }, [tab, navigate, tabs]);
-
-    const handleTabChange = (newTab) => {
-        navigate(`/dashboard/${newTab}`);
-    };
+    })
+    
 
     return (
         <div className='flex flex-col h-[100vh]'>
-            <DashboardNavBar tabs={tabs} currTab={currTab} setCurrTab={handleTabChange} />
-            <DashboardBody currTab={currTab} />
+            <DashboardNavBar tabs={tabs} currTab={currTab} />
+            <Outlet />
         </div>
     )
 }

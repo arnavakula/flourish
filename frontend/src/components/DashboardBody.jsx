@@ -13,14 +13,9 @@ const DashboardBody = ({ currTab }) => {
             case 'all-plants':
                 return <AllPlants />
             case 'community':
-                return (
-                    <Routes>
-                        <Route path='*' element={<Community />} />
-                    </Routes>
-                )
+                return <Community />
         }
     }
-
     
     return (
         <>
