@@ -10,16 +10,16 @@ const RegisterForm = () => {
     const navigate = useNavigate();
     
     const handleSubmit = async (evt) => {
-        try {
-            evt.preventDefault();
-            const response = await axios.post('http://localhost:8000/user/register', registerInfo, { withCredentials: true });
+      try {
+          evt.preventDefault();
+          const response = await axios.post('http://localhost:8000/user/register', registerInfo, { withCredentials: true });
 
-            setIsLoggedIn(true);
-            setAuthUser(response.data.user);
-            navigate('/dashboard');
-        } catch(err) {
-            console.error('Login error:', err);
-        }
+          setIsLoggedIn(true);
+          setAuthUser(response.data.user);
+          navigate('/dashboard');
+      } catch(err) {
+          console.error('Login error:', err);
+      }
     }
 
     return (

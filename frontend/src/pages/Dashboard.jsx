@@ -11,7 +11,9 @@ const Dashboard = () => {
     const [currTab, setCurrTab] = useState('');
 
     useEffect(() => {
-        const newTab = location.pathname.split('/').pop();
+        const pathParts = location.pathname.split('/');
+        const newTab = pathParts.length > 2 ? pathParts[2] : 'your-plants';
+
         if(tabs.includes(newTab)){
             setCurrTab(newTab);
         } else {

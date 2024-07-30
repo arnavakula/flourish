@@ -6,10 +6,10 @@ const User = require('../models/user');
 //edit post
 
 module.exports.uploadPost = async (req, res) => {
-    const { text, tag = 'None' } = req.body;
+    const { title, text, tag = 'None' } = req.body;
     const user = await User.findById(req.body.user);
 
-    const post = new Post({ text, tag, user });
+    const post = new Post({ title, text, tag, user });
     await post.save();
 
     user.posts.push(post);

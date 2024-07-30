@@ -8,6 +8,7 @@ const Community = () => {
     const tabs = ['view', 'create'];
     const location = useLocation();
     const [tab, setTab] = useState('');
+    const [sort, setSort] = useState('all');
 
     const [searchParams, setSearchParams] = useSearchParams();
 
@@ -18,6 +19,13 @@ const Community = () => {
         } else {
             setTab('view');
         }
+
+        if(newTab !== 'popular' || newTab === 'view'){
+            const newSort = searchParams.get('sort') === 'popular' ? 'popular' : 'all';
+            setSort(newSort)
+        }
+
+        
     })
 
 
@@ -32,22 +40,26 @@ const Community = () => {
         <div className='w-[100vw] h-[100%] border-2 border-green-800 flex flex-row'>
             <div className='LEFT-BAR w-[20%] h-[100%]'>
                 <div className='w-[100%] h-[15%] flex flex-col justify-start gap-[2px] mt-[1vh]'>
-                    <Link to='/dashboard/community/view?sort=all' className={`mx-auto border text-center item-center rounded-lg w-[60%] ${tab === 'view' ? 'bg-[#bbb0b8]' : ''}`}>
+                    <Link to='/dashboard/community/view?sort=all' className={`mx-auto border text-center item-center rounded-lg w-[60%] ${tab === 'view' && sort === 'all' ? 'bg-[#bbb0b8]' : ''}`}>
                         <button className='w-[100%] h-[100%]'>
                             <span className='flex justify-center gap-[8px]'><SignalCellularAltIcon /> All</span>
+                        </button>
+                    </Link>
+                    <Link to='/dashboard/community/view?sort=popular' className={`mx-auto border text-center item-center rounded-lg w-[60%] ${tab === 'view' && sort === 'popular' ? 'bg-[#bbb0b8]' : ''}`}>
+                        <button className='w-[100%] h-[100%]'>
+                            <span className='flex justify-center gap-[8px]'><TrendingUpIcon /> Popular</span>
                         </button>
                     </Link>
 
                 
                 </div>
                 <hr className='my-3 w-[75%] mx-auto '/>
-                <div className='w-[100%] h-[7.5%] flex flex-col justify-start rounded-lg gap-[2px]'>
-                    <button 
-                        className={`rounded-lg w-[60%] flex-1 mx-auto ${tab === 'Create a Post' ? 'bg-[#bbb0b8]' : ''}`} 
-                        onClick={() => handleTabChange('create')}
-                    >
-                        <span className='flex justify-center gap-[8px]'><AddIcon />  Create a Post</span>
-                    </button>
+                <div className='w-[100%] h-[15%] flex flex-col justify-start gap-[2px] mt-[1vh]'>
+                    <Link to='/dashboard/community/create' className={`mx-auto border text-center item-center rounded-lg w-[60%] ${tab === 'create' ? 'bg-[#bbb0b8]' : ''}`}>
+                            <button className='w-[100%] h-[100%]'>
+                                <span className='flex justify-center gap-[8px]'><AddIcon /> Create Post</span>
+                            </button>
+                    </Link>
                 </div>
             </div>
             <div className='CENTER-CONTENT w-[80%] h-[100%] border'>
