@@ -1,29 +1,23 @@
-import useLocalStorage from "./useLocalStorage";
-import useUser from "./useUser"
-import { useEffect } from "react";
+import { AuthContext } from '../context/AuthContext';
+import useLocalStorage from './useLocalStorage';
+import useUser from './useUser'
+import { useContext } from 'react';
 
 const useAuth = () => {
-    const { getItem } = useLocalStorage();
-    const [authUser, setAuthUser] = useState(getItem('user'));
-
-    useEffect(() => {
-        const user = getItem('user');
-
-        if(user){
-            addUser(JSON.parse(user));
-        }
-
-    }, [addUser, getItem]);
+    const { setItem, removeItem } = useLocalStorage();
+    const { authUser, setAuthUser } = useContext(AuthContext);
 
     const login = (user) => {
-        addUser(user)
+        setAuthUser(user);
+        setItem('user', user);
     }
 
-    const logout = (user) => {
-        removeUser(user)
+    const logout = () => {
+        setAuthUser(null);
+        removeItem('user');
     }
 
-    return { user, login, logout, setUser };
+    return { authUser, setAuthUser, login, logout };
 }
 
 export default useAuth;

@@ -1,9 +1,9 @@
-import { useContext, useEffect, useState } from 'react';
-import { AuthContext } from '../context/AuthContext';
+import { useEffect, useState } from 'react';
+import useAuth from '../hooks/useAuth';
 
 const ViewPosts = () => {
     const [posts, setPosts] = useState([]);
-    const { authUser } = useContext(AuthContext);
+    const { authUser } = useAuth();
 
     useEffect(() => {
         if(authUser) {

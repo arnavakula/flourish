@@ -1,13 +1,11 @@
-import { useState } from 'react';
 import GrassIcon from '@mui/icons-material/Grass';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const formatTabName = (tab) => {
     return tab.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
 };
 
-
-const DashboardNavBar = ({ tabs, currTab, setCurrTab }) => {
+const DashboardNavBar = ({ tabs, currTab }) => {
 
     return (
         <div className="flex w-[100vw] min-h-[8vh] bg-[#492b40] border-b-[0.5px] border-slate-200 ">

@@ -1,24 +1,23 @@
 import { Link } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext';
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
+import useAuth from '../hooks/useAuth';
 
 const YourPlants = () => {
     const [image, setImage] = useState(null);
     const [plants, setPlants] = useState([]);
-    const { authUser } = useContext(AuthContext);
+    const { authUser } = useAuth();
 
     useEffect(() => {
-        if(authUser) {
-            const loadPlants = async () => {
-                const response = await fetch(`http://localhost:8000/user/plants/${authUser}`, {
-                    method: 'GET'
-                })
-                .then(response => response.json())
-                .then(data => setPlants(data.plants));
-            }    
-            loadPlants();
-        }
-    }, [authUser])
+        const loadPlants = async () => {
+            const response = await fetch(`http://localhost:8000/user/plants/${authUser}`, {
+                method: 'GET'
+            })
+            .then(response => response.json())
+            .then(data => setPlants(data.plants));
+        }    
+        loadPlants();
+    
+    }, [])
 
     const handleFileChange = async (evt) => {
         setImage(evt.target.files[0])
@@ -26,30 +25,27 @@ const YourPlants = () => {
 
     const handleSubmit = async (evt) => {
         evt.preventDefault();
-        if(!authUser){
-            alert('must be logged in!');
-        } else {
-            const formData = new FormData();
-            formData.append('image', image);
-            formData.append('user', authUser);
+        const formData = new FormData();
+        formData.append('image', image);
+        formData.append('user', authUser);
+        
+        try {
+            const uploadRes = await fetch('http://localhost:8000/plant/upload', {
+                method: 'POST',
+                body: formData
+            });
             
-            try {
-                const uploadRes = await fetch('http://localhost:8000/plant/upload', {
-                    method: 'POST',
-                    body: formData
-                });
-                
-                
-                const plantRes = await fetch(`http://localhost:8000/user/plants/${authUser}`, {
-                    method: 'GET'
-                })
-                .then(response => response.json())
-                .then(data => setPlants(data.plants));
             
-            } catch(err){
-                console.log(err);
-            }
+            const plantRes = await fetch(`http://localhost:8000/user/plants/${authUser}`, {
+                method: 'GET'
+            })
+            .then(response => response.json())
+            .then(data => setPlants(data.plants));
+        
+        } catch(err){
+            console.log(err);
         }
+    
     }
 
     return (

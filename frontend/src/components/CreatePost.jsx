@@ -1,12 +1,12 @@
-import { useContext, useState } from 'react';
-import { AuthContext } from '../context/AuthContext';
+import { useState } from 'react';
 import axios from 'axios';
+import useAuth from '../hooks/useAuth';
 
 const CreatePost = () => {
   const [postInfo, setPostInfo] = useState({});
-  const { authUser } = useContext(AuthContext);
+  const { authUser } = useAuth();
 
-  console.log(postInfo);
+  console.log(authUser)
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();

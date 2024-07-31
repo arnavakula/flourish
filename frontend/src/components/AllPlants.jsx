@@ -1,21 +1,17 @@
 import { Link } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext';
 import axios from 'axios';
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 
 const AllPlants = () => {
     const [plants, setPlants] = useState([]);
-    const { authUser } = useContext(AuthContext);
 
     useEffect(() => {
-        if(authUser) {
-            const loadPlants = async () => {
-                const response = await axios.get(`http://localhost:8000/plant`, { withCredentials: true })
-                setPlants(response.data.plants);
-            }    
-            loadPlants();
-        }
-    }, [authUser])
+        const loadPlants = async () => {
+            const response = await axios.get(`http://localhost:8000/plant`, { withCredentials: true })
+            setPlants(response.data.plants);
+        }    
+        loadPlants();
+    }, [])
 
     return (
         <>

@@ -13,7 +13,7 @@ module.exports.uploadPost = async (req, res) => {
     const post = new Post({ title, text, tag, author});
     await post.save();
 
-    user.posts.push(post);
+    author.posts.push(post);
     await author.save();
 
     res.json({message: 'uploaded post'})

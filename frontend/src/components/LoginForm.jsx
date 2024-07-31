@@ -1,16 +1,14 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useContext, useState } from 'react';
-import { AuthContext } from '../context/AuthContext';
+import { useState } from 'react';
 import axios from 'axios';
-import useLocalStorage from '../hooks/useLocalStorage';
+import useAuth from '../hooks/useAuth';
 
 
 const LoginForm = () => {
-    const { setAuthUser } = useContext(AuthContext);
+    const { login } = useAuth();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
-    const { setItem } = useLocalStorage();
     
     const handleSubmit = async (evt) => {
         try {
@@ -20,8 +18,7 @@ const LoginForm = () => {
                 password
             }, { withCredentials: true });
 
-            setAuthUser(response.data.user);
-            setItem('user', response.data.user);
+            login(response.data.user);
             navigate('/dashboard');
         } catch(err) {
             console.error('Login error:', err);

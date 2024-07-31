@@ -1,11 +1,11 @@
-import React, { useContext } from 'react';
-import { AuthContext } from '../context/AuthContext';
+import React from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import useLocalStorage from '../hooks/useLocalStorage';
+import useAuth from '../hooks/useAuth';
 
 const NavBar = () => {
-    const { authUser, setAuthUser } = useContext(AuthContext);
+    const { authUser, logout } = useAuth();
     const { getItem, removeItem } = useLocalStorage();
     const navigate = useNavigate();
 
@@ -13,8 +13,7 @@ const NavBar = () => {
         try {
             const response = await axios.get('http://localhost:8000/user/logout', { withCredentials: true });
             if(response.data.success){
-                setAuthUser(null);
-                removeItem('user');
+                logout();
             }
         } catch (err){
             console.log(err);
@@ -38,7 +37,7 @@ const NavBar = () => {
                 <li onClick={openDashboard}className='cursor-pointer'>Dashboard</li>
             </ul>
 
-            {getItem('user') ? ( 
+            {authUser ? ( 
                 <ul className="flex flex-row gap-[2em] ml-auto mr-[2em]">
                     <li><a onClick={handleLogout} href='#'>Logout</a></li>
                 </ul>

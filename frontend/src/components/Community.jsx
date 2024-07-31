@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import SignalCellularAltIcon from '@mui/icons-material/SignalCellularAlt';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import AddIcon from '@mui/icons-material/Add';
-import { useLocation, useNavigate, useSearchParams, redirect, Link, Outlet } from 'react-router-dom';
+import { useLocation, useSearchParams, Link, Outlet } from 'react-router-dom';
 
 const Community = () => {
     const tabs = ['view', 'create'];

@@ -7,16 +7,13 @@ export const AuthContext = createContext();
 export function AuthProvider({ children }){
     const { getItem, setItem, removeItem } = useLocalStorage();
     const [authUser, setAuthUser] = useState(getItem('user'));
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
     
 
     useEffect(() => {
        const fetchAuthStatus = async () => {
             try {
                 const response = await axios.get('http://localhost:8000/user/status', { withCredentials: true });
-                
-                setIsLoggedIn(response.data.authenticated);
-
+            
                 if(response.data.authenticated){
                     setAuthUser(response.data.user);
                     setItem('user', response.data.user);
@@ -24,7 +21,6 @@ export function AuthProvider({ children }){
                 
             } catch(err) {
                 console.err('Error fetching authentication status: ', err);
-                setIsLoggedIn(false);
                 setAuthUser(null);
                 removeItem('user');
             }
@@ -32,15 +28,9 @@ export function AuthProvider({ children }){
        
        fetchAuthStatus();
     }, [])
-    
-
-    const value = {
-        authUser,
-        setAuthUser,
-    };
 
     return (
-        <AuthContext.Provider value={value}>
+        <AuthContext.Provider value={{ authUser, setAuthUser }}>
             {children}
         </AuthContext.Provider>
     );

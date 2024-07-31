@@ -1,11 +1,11 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useContext, useState } from 'react';
-import { AuthContext } from '../context/AuthContext';
+import { useState } from 'react';
 import axios from 'axios';
+import useAuth from '../hooks/useAuth';
 
 
 const RegisterForm = () => {
-    const { setAuthUser } = useContext(AuthContext);
+    const { login } = useAuth();
     const [registerInfo, setRegisterInfo] = useState({});
     const navigate = useNavigate();
     
@@ -14,7 +14,7 @@ const RegisterForm = () => {
           evt.preventDefault();
           const response = await axios.post('http://localhost:8000/user/register', registerInfo, { withCredentials: true });
 
-          setAuthUser(response.data.user);
+          login(response.data.user);
           navigate('/dashboard');
       } catch(err) {
           console.error('Login error:', err);
