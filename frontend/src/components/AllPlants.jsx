@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { AuthContext } from '../context/AuthContext';
 import axios from 'axios';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 
 const AllPlants = () => {
     const [plants, setPlants] = useState([]);
-    const { authUser, isLoggedIn } = useAuth();
+    const { authUser, isLoggedIn } = useContext(AuthContext);
 
     useEffect(() => {
         if(authUser) {

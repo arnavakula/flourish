@@ -23,7 +23,7 @@ const NavBar = () => {
     };
 
     const openDashboard = () => {
-        if(isLoggedIn){
+        if(authUser){
             navigate('/dashboard');
         } else {
             navigate('/login');

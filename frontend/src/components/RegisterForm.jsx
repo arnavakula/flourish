@@ -1,11 +1,11 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
-import { useAuth } from '../context/AuthContext';
+import { useContext, useState } from 'react';
+import { AuthContext } from '../context/AuthContext';
 import axios from 'axios';
 
 
 const RegisterForm = () => {
-    const { setAuthUser, setIsLoggedIn } = useAuth();
+    const { setAuthUser, setIsLoggedIn } = useContext(AuthContext);
     const [registerInfo, setRegisterInfo] = useState({});
     const navigate = useNavigate();
     

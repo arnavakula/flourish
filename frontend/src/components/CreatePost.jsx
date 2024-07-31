@@ -1,10 +1,10 @@
-import { useState } from 'react';
-import { useAuth } from '../context/AuthContext';
+import { useContext, useState } from 'react';
+import { AuthContext } from '../context/AuthContext';
 import axios from 'axios';
 
 const CreatePost = () => {
   const [postInfo, setPostInfo] = useState({});
-  const { authUser } = useAuth();
+  const { authUser } = useContext(AuthContext);
 
   console.log(postInfo);
 

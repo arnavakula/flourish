@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import { useState, useEffect } from 'react';
+import { AuthContext } from '../context/AuthContext';
+import { useState, useEffect, useContext } from 'react';
 
 const YourPlants = () => {
     const [image, setImage] = useState(null);
     const [plants, setPlants] = useState([]);
-    const { authUser, isLoggedIn } = useAuth();
+    const { authUser, isLoggedIn } = useContext(AuthContext);
 
     useEffect(() => {
         if(authUser) {

@@ -4,14 +4,11 @@ import useLocalStorage from '../hooks/useLocalStorage';
 
 export const AuthContext = createContext();
 
-export function useAuth() {
-    return useContext(AuthContext);
-}
-
 export function AuthProvider({ children }){
-    const [authUser, setAuthUser] = useState(null);
+    const { getItem, setItem, removeItem } = useLocalStorage();
+    const [authUser, setAuthUser] = useState(getItem('user'));
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const { setItem, removeItem } = useLocalStorage();
+    
 
     useEffect(() => {
        const fetchAuthStatus = async () => {
