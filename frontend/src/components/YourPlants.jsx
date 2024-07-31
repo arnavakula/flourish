@@ -5,7 +5,7 @@ import { useState, useEffect, useContext } from 'react';
 const YourPlants = () => {
     const [image, setImage] = useState(null);
     const [plants, setPlants] = useState([]);
-    const { authUser, isLoggedIn } = useContext(AuthContext);
+    const { authUser } = useContext(AuthContext);
 
     useEffect(() => {
         if(authUser) {
@@ -26,7 +26,7 @@ const YourPlants = () => {
 
     const handleSubmit = async (evt) => {
         evt.preventDefault();
-        if(!isLoggedIn){
+        if(!authUser){
             alert('must be logged in!');
         } else {
             const formData = new FormData();

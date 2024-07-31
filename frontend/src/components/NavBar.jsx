@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import useLocalStorage from '../hooks/useLocalStorage';
 
 const NavBar = () => {
-    const { authUser, setAuthUser, isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
+    const { authUser, setAuthUser } = useContext(AuthContext);
     const { getItem, removeItem } = useLocalStorage();
     const navigate = useNavigate();
 
@@ -13,7 +13,6 @@ const NavBar = () => {
         try {
             const response = await axios.get('http://localhost:8000/user/logout', { withCredentials: true });
             if(response.data.success){
-                setIsLoggedIn(false);
                 setAuthUser(null);
                 removeItem('user');
             }

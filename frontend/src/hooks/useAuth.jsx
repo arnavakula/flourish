@@ -3,8 +3,8 @@ import useUser from "./useUser"
 import { useEffect } from "react";
 
 const useAuth = () => {
-    const { user, addUser, removeUser, setUser } = useUser();
     const { getItem } = useLocalStorage();
+    const [authUser, setAuthUser] = useState(getItem('user'));
 
     useEffect(() => {
         const user = getItem('user');

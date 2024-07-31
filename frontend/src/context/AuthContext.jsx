@@ -37,8 +37,6 @@ export function AuthProvider({ children }){
     const value = {
         authUser,
         setAuthUser,
-        isLoggedIn,
-        setIsLoggedIn
     };
 
     return (

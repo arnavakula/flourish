@@ -5,7 +5,7 @@ import axios from 'axios';
 
 
 const RegisterForm = () => {
-    const { setAuthUser, setIsLoggedIn } = useContext(AuthContext);
+    const { setAuthUser } = useContext(AuthContext);
     const [registerInfo, setRegisterInfo] = useState({});
     const navigate = useNavigate();
     
@@ -14,7 +14,6 @@ const RegisterForm = () => {
           evt.preventDefault();
           const response = await axios.post('http://localhost:8000/user/register', registerInfo, { withCredentials: true });
 
-          setIsLoggedIn(true);
           setAuthUser(response.data.user);
           navigate('/dashboard');
       } catch(err) {

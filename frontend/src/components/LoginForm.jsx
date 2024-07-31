@@ -6,7 +6,7 @@ import useLocalStorage from '../hooks/useLocalStorage';
 
 
 const LoginForm = () => {
-    const { setAuthUser, setIsLoggedIn } = useContext(AuthContext);
+    const { setAuthUser } = useContext(AuthContext);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
@@ -20,7 +20,6 @@ const LoginForm = () => {
                 password
             }, { withCredentials: true });
 
-            setIsLoggedIn(true);
             setAuthUser(response.data.user);
             setItem('user', response.data.user);
             navigate('/dashboard');

@@ -5,7 +5,7 @@ import { useState, useEffect, useContext } from 'react';
 
 const AllPlants = () => {
     const [plants, setPlants] = useState([]);
-    const { authUser, isLoggedIn } = useContext(AuthContext);
+    const { authUser } = useContext(AuthContext);
 
     useEffect(() => {
         if(authUser) {
