@@ -11,7 +11,12 @@ const CreatePost = () => {
   const handleSubmit = async (evt) => {
     evt.preventDefault();
     const data = {...postInfo, ['user']: authUser}
-    const response = await axios.post('http://localhost:8000/post', data, { withCredentials: true });
+    try {
+      const response = await axios.post('http://localhost:8000/post', data, { withCredentials: true });
+      //TODO redirect to show post page
+    } catch (err){
+      console.log(err);
+    }
   }
 
   const updatePostInfo = (evt) => {

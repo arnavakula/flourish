@@ -1,8 +1,8 @@
-// src/context/AuthContext.js
-import React, { createContext, useState, useEffect, useContext } from 'react';
+import { createContext, useState, useEffect, useContext } from 'react';
 import axios from 'axios';
+import useLocalStorage from '../hooks/useLocalStorage';
 
-const AuthContext = createContext();
+export const AuthContext = createContext();
 
 export function useAuth() {
     return useContext(AuthContext);
@@ -11,7 +11,7 @@ export function useAuth() {
 export function AuthProvider({ children }){
     const [authUser, setAuthUser] = useState(null);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+    const { setItem, removeItem } = useLocalStorage();
 
     useEffect(() => {
        const fetchAuthStatus = async () => {
@@ -22,12 +22,14 @@ export function AuthProvider({ children }){
 
                 if(response.data.authenticated){
                     setAuthUser(response.data.user);
+                    setItem('user', response.data.user);
                 }
                 
             } catch(err) {
                 console.err('Error fetching authentication status: ', err);
                 setIsLoggedIn(false);
                 setAuthUser(null);
+                removeItem('user');
             }
        }
        
@@ -48,5 +50,4 @@ export function AuthProvider({ children }){
         </AuthContext.Provider>
     );
 };
-
 

@@ -2,6 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
+import useLocalStorage from '../hooks/useLocalStorage';
 
 
 const LoginForm = () => {
@@ -9,6 +10,7 @@ const LoginForm = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
+    const { setItem } = useLocalStorage();
     
     const handleSubmit = async (evt) => {
         try {
@@ -20,7 +22,7 @@ const LoginForm = () => {
 
             setIsLoggedIn(true);
             setAuthUser(response.data.user);
-            console.log(response.data.user);
+            setItem('user', response.data.user);
             navigate('/dashboard');
         } catch(err) {
             console.error('Login error:', err);

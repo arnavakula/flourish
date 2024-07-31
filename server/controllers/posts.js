@@ -1,19 +1,20 @@
 const Post = require('../models/post');
 const User = require('../models/user');
 
-//upload post
-//delete post
-//edit post
+module.exports.getPosts = async (req, res) => {
+    const posts = await Post.find({}).populate('author');
+    res.json({'posts': posts, message: 'returning plants'});
+}
 
 module.exports.uploadPost = async (req, res) => {
     const { title, text, tag = 'None' } = req.body;
-    const user = await User.findById(req.body.user);
+    const author = await User.findById(req.body.user);
 
-    const post = new Post({ title, text, tag, user });
+    const post = new Post({ title, text, tag, author});
     await post.save();
 
     user.posts.push(post);
-    await user.save();
+    await author.save();
 
     res.json({message: 'uploaded post'})
 }

@@ -1,25 +1,13 @@
 import React, { useContext } from 'react';
-import { useAuth } from '../context/AuthContext';
+import { AuthContext } from '../context/AuthContext';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+import useLocalStorage from '../hooks/useLocalStorage';
 
 const NavBar = () => {
-    const { authUser, setAuthUser, isLoggedIn, setIsLoggedIn } = useAuth();
+    const { authUser, setAuthUser, isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
+    const { getItem, removeItem } = useLocalStorage();
     const navigate = useNavigate();
-
-    const handleLogin = async () => {
-        try {
-            const response = await axios.post('http://localhost:8000/user/login', {
-                username: 'arnavakula', 
-                password: 'monkey' 
-            }, { withCredentials: true });
-
-            setIsLoggedIn(true);
-            setAuthUser(response.data.user);
-        } catch (error) {
-            console.error('Login error:', error);
-        }
-    };
 
     const handleLogout = async () => {
         try {
@@ -27,6 +15,7 @@ const NavBar = () => {
             if(response.data.success){
                 setIsLoggedIn(false);
                 setAuthUser(null);
+                removeItem('user');
             }
         } catch (err){
             console.log(err);
@@ -50,7 +39,7 @@ const NavBar = () => {
                 <li onClick={openDashboard}className='cursor-pointer'>Dashboard</li>
             </ul>
 
-            {isLoggedIn ? ( 
+            {getItem('user') ? ( 
                 <ul className="flex flex-row gap-[2em] ml-auto mr-[2em]">
                     <li><a onClick={handleLogout} href='#'>Logout</a></li>
                 </ul>
