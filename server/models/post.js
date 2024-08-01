@@ -22,14 +22,14 @@ const PostSchema = new mongoose.Schema({
         type: String,
         enum: ['None', 'Question', 'Advice', 'Discussion', 'Help Needed']
     },
-    likes: {
-        type: Number,
-        default: 0
-    },
-    dislikes: {
-        type: Number,
-        default: 0
-    },
+    likes: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+    }],
+    dislikes: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+    }],
     date: {
         type: Date,
         default: Date.now

@@ -31,7 +31,19 @@ const UserSchema = new mongoose.Schema({
             type: mongoose.Schema.ObjectId,
             ref: 'Comment'
         }
-    ]
+    ],
+    likedPosts: [
+        {
+            type: mongoose.Schema.ObjectId,
+            ref: 'Post'
+        }
+    ],
+    dislikedPosts: [
+        {
+            type: mongoose.Schema.ObjectId,
+            ref: 'Post'
+        }
+    ],
 });
 
 UserSchema.plugin(passportLocalMongoose);

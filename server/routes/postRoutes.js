@@ -8,5 +8,7 @@ router.route('/')
     .post(posts.uploadPost)
     .delete(posts.deletePost)
 
+router.route('/vote')
+    .post(posts.toggleVote)
 
 module.exports = router;

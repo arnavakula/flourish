@@ -6,8 +6,6 @@ const CreatePost = () => {
   const [postInfo, setPostInfo] = useState({});
   const { authUser } = useAuth();
 
-  console.log(authUser)
-
   const handleSubmit = async (evt) => {
     evt.preventDefault();
     const data = {...postInfo, ['user']: authUser}
