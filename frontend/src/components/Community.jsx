@@ -5,7 +5,7 @@ import AddIcon from '@mui/icons-material/Add';
 import { useLocation, useSearchParams, Link, Outlet } from 'react-router-dom';
 
 const Community = () => {
-    const tabs = ['view', 'create', '/post'];
+    const tabs = ['view', 'create', 'post'];
     const location = useLocation();
     const [tab, setTab] = useState('');
     const [sort, setSort] = useState('all');
@@ -13,21 +13,18 @@ const Community = () => {
     const [searchParams, setSearchParams] = useSearchParams();
 
     useEffect(() => {
-        const newTab = location.pathname.split('/').pop();
+        const newTab = location.pathname.split('/')[3];
         if(tabs.includes(newTab)){
             setTab(newTab);
         } else {
             setTab('view');
         }
 
-        if(newTab !== 'popular' || newTab === 'view'){
+        if(newTab !== 'popular' || newTab !== 'post' || newTab === 'view'){
             const newSort = searchParams.get('sort') === 'popular' ? 'popular' : 'all';
             setSort(newSort)
         }
-
-        
     })
-
 
     return (
         <>

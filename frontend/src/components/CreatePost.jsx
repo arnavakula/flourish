@@ -1,17 +1,19 @@
 import { useState } from 'react';
 import axios from 'axios';
 import useAuth from '../hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
 
 const CreatePost = () => {
   const [postInfo, setPostInfo] = useState({});
   const { authUser } = useAuth();
+  const navigate = useNavigate();
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
     const data = {...postInfo, ['user']: authUser}
     try {
       const response = await axios.post('http://localhost:8000/post', data, { withCredentials: true });
-      //TODO redirect to show post page
+      navigate(`/dashboard/community/post/${response.data.postId}`);
     } catch (err){
       console.log(err);
     }

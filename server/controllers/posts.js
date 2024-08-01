@@ -21,7 +21,7 @@ module.exports.uploadPost = async (req, res) => {
     author.posts.push(post);
     await author.save();
 
-    res.json({message: 'uploaded post'})
+    res.json({'postId': post._id, message: 'uploaded post'})
 }
 
 module.exports.deletePost = async (req, res) => {
@@ -34,62 +34,58 @@ module.exports.toggleVote = async (req, res) => {
     const { userId, postId, voteType } = req.body;
     const user = await User.findById(userId);
 
-    if(user.posts.includes(req.body.postId)){
-        res.json({liked: false, message: 'Error: user is attempting to like their own post'});
-    } else {
-        
-        const post = await Post.findById(postId);
-        
-        if(voteType === 'like'){
-            //clicked on like button
-            if(!user.likedPosts.includes(postId)){
-                user.likedPosts.push(post);
-                post.likes.push(user);
 
-                if(user.dislikedPosts.includes(postId)){
-                    await User.findByIdAndUpdate(userId, {$pull: {dislikedPosts: postId}});
-                    await Post.findByIdAndUpdate(postId, {$pull: {dislikes: userId}})
-                }
+    
+    const post = await Post.findById(postId);
+    
+    if(voteType === 'like'){
+        //clicked on like button
+        if(!user.likedPosts.includes(postId)){
+            user.likedPosts.push(post);
+            post.likes.push(user);
 
-                await user.save();
-                await post.save();
-
-                res.json({liked: true, message: 'Successfully liked post'});
-            } 
-            //unlike if already liked OR if disliking
-            else {
-                await User.findByIdAndUpdate(userId, {$pull: {likedPosts: postId}});
-                await Post.findByIdAndUpdate(postId, {$pull: {likes: userId}});
-
-                res.json({liked: false, message: 'Successfully unliked post'});
-            }
-            
-        } else if(voteType === 'dislike'){
-            if(!user.dislikedPosts.includes(postId)){
-                user.dislikedPosts.push(post);
-                post.dislikes.push(user);
-
-                if(user.likedPosts.includes(postId)){
-                    await User.findByIdAndUpdate(userId, {$pull: {likedPosts: postId}});
-                    await Post.findByIdAndUpdate(postId, {$pull: {likes: userId}})
-                }
-
-                await user.save();
-                await post.save();
-
-                res.json({liked: true, message: 'Successfully disliked post'});
-            } 
-            //unlike if already liked OR if disliking
-            else {
+            if(user.dislikedPosts.includes(postId)){
                 await User.findByIdAndUpdate(userId, {$pull: {dislikedPosts: postId}});
-                await Post.findByIdAndUpdate(postId, {$pull: {dislikes: userId}});
-
-                res.json({liked: false, message: 'Successfully undisliked post'});
+                await Post.findByIdAndUpdate(postId, {$pull: {dislikes: userId}})
             }
-        } else {
-            res.json({ voteType });
-        }
-    }
 
+            await user.save();
+            await post.save();
+
+            res.json({liked: true, message: 'Successfully liked post'});
+        } 
+        //unlike if already liked OR if disliking
+        else {
+            await User.findByIdAndUpdate(userId, {$pull: {likedPosts: postId}});
+            await Post.findByIdAndUpdate(postId, {$pull: {likes: userId}});
+
+            res.json({liked: false, message: 'Successfully unliked post'});
+        }
+        
+    } else if(voteType === 'dislike'){
+        if(!user.dislikedPosts.includes(postId)){
+            user.dislikedPosts.push(post);
+            post.dislikes.push(user);
+
+            if(user.likedPosts.includes(postId)){
+                await User.findByIdAndUpdate(userId, {$pull: {likedPosts: postId}});
+                await Post.findByIdAndUpdate(postId, {$pull: {likes: userId}})
+            }
+
+            await user.save();
+            await post.save();
+
+            res.json({liked: true, message: 'Successfully disliked post'});
+        } 
+        //unlike if already liked OR if disliking
+        else {
+            await User.findByIdAndUpdate(userId, {$pull: {dislikedPosts: postId}});
+            await Post.findByIdAndUpdate(postId, {$pull: {dislikes: userId}});
+
+            res.json({liked: false, message: 'Successfully undisliked post'});
+        }
+    } else {
+        res.json({ voteType });
+    }
 
 }
