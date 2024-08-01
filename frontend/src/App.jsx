@@ -11,6 +11,7 @@ import AllPlants from './components/AllPlants';
 import Community from './components/Community';
 import ViewPosts from './components/ViewPosts';
 import CreatePost from './components/CreatePost';
+import ViewSinglePost from './components/ViewSinglePost';
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
                 <Route index element={<Navigate to="view?sort=all" replace />} />
                 <Route path='view' element={ <ViewPosts /> } />
                 <Route path='create' element={ <CreatePost /> }/>
+                <Route path='post/:postId' element={ <ViewSinglePost /> }/>
                 <Route path='*' element={<Navigate to="view?sort=all" replace />} />
               </Route>
               <Route path='*' element={ <Navigate to="your-plants" replace /> } />

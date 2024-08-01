@@ -6,6 +6,11 @@ module.exports.getPosts = async (req, res) => {
     res.json({'posts': posts, message: 'returning plants'});
 }
 
+module.exports.getSinglePost = async (req, res) => {
+    const post = await Post.findById(req.params.postId);
+    res.json({ post })
+}
+
 module.exports.uploadPost = async (req, res) => {
     const { title, text, tag = 'None' } = req.body;
     const author = await User.findById(req.body.user);

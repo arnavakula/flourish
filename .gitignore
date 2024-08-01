@@ -26,3 +26,12 @@ TODOs.md
 .eslintcache
 
 .env
+model.keras
+sample.csv
+sample.json
+test.ipynb
+test.png
+export/fingerprint.pb
+export/saved_model.pb
+export/variables/variables.data-00000-of-00001
+export/variables/variables.index

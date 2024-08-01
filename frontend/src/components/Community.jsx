@@ -5,7 +5,7 @@ import AddIcon from '@mui/icons-material/Add';
 import { useLocation, useSearchParams, Link, Outlet } from 'react-router-dom';
 
 const Community = () => {
-    const tabs = ['view', 'create'];
+    const tabs = ['view', 'create', '/post'];
     const location = useLocation();
     const [tab, setTab] = useState('');
     const [sort, setSort] = useState('all');

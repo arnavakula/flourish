@@ -17,9 +17,8 @@ const Dashboard = () => {
     useEffect(() => {
         if(!authUser){
             navigate('/login');
-        } else {
-            console.log(`${getItem('user')}`);
         }
+        
         const pathParts = location.pathname.split('/');
         const newTab = pathParts.length > 2 ? pathParts[2] : 'your-plants';
 

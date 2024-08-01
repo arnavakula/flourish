@@ -8,6 +8,9 @@ router.route('/')
     .post(posts.uploadPost)
     .delete(posts.deletePost)
 
+router.route('/:postId')
+    .get(posts.getSinglePost)
+
 router.route('/vote')
     .post(posts.toggleVote)
 
