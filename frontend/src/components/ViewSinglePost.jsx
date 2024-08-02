@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import axios from 'axios';
 
 const ViewSinglePost = () => {
@@ -14,6 +15,7 @@ const ViewSinglePost = () => {
     const [trigger, setTrigger] = useState(false);
     const [comment, setComment] = useState('');
     const [showCommentButton, setShowCommentButton] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const loadPosts = async () => {
@@ -57,9 +59,13 @@ const ViewSinglePost = () => {
 
     return (
         <div className='border-2 border-green-200 w-[100%] flex flex-col'>
-            <div className='border p-4 w-[100%]'>
+            <div className='border p-4 w-[100%] flex gap-[2px]'>
                 {post && (
                     <>
+                    <button onClick={() => navigate(-1)}className='h-min'>
+                        <ArrowBackIosNewIcon fontSize='small'/>
+                    </button>
+                    <div>
                         <h2 className='font-bold'>{post.title}<span className='font-light italic'> ({post.tag === 'None' ? '' : post.tag})</span></h2>
                         {post.author && post.author._id === authUser ? <p><strong>You</strong></p> : 'hi'}
                         <p>{post.text}</p>
@@ -73,6 +79,7 @@ const ViewSinglePost = () => {
                                 <span className='px-1'>{post.dislikes.length}</span>
                             </button>
                         </div>
+                    </div>
                     </>
                 )}
             </div>
