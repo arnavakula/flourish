@@ -1,24 +1,6 @@
 import { useState } from "react";
 import '../assets/styles/GardenCalendar.css';
-
-const seedCrops = [
-    "Wheat",
-    "Rice",
-    "Corn",
-    "Tomato",
-    "Potato",
-    "Lettuce",
-    "Apple",
-    "Banana",
-    "Grapes",
-    "Soybean",
-    "Pea",
-    "Basil",
-    "Mint",
-    "Almond",
-    "Sunflower"
-]
-  
+import data from '../seed/seed.json';
 
 const GardenCalendar = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -59,9 +41,9 @@ const GardenCalendar = () => {
                             <label htmlFor='crop' className="p-2">Select crop</label>
                             <select onChange={toggleDisable} defaultValue='' name='crop'>
                                 <option value='' disabled>Select a crop below</option>
-                                {seedCrops.map((crop, i) => (
-                                    <option key={i} value={crop}>{crop}</option>
-                                ))}
+                                {Object.keys(data).map(((key, i) => (
+                                    <option key={i} value={key}>{key}</option>
+                                )))}
                             </select>
                             <br />
                             <div className="flex justify-end gap-[5px]">
