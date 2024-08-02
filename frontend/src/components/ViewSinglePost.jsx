@@ -27,7 +27,7 @@ const ViewSinglePost = () => {
 
     }, [trigger]);
 
-    const toggleVote = async (evt, post, voteType) => {
+    const toggleVote = async (evt, voteType) => {
         evt.preventDefault();
         evt.stopPropagation();
 
@@ -35,14 +35,23 @@ const ViewSinglePost = () => {
             'postId': post._id,
             'userId': authUser,
             voteType
-        })
+        }, { withCredentials: true })
 
         setTrigger(prev => !prev);
     }
 
-    const handleSubmit = (evt) => {
+    const handleSubmit = async (evt) => {
         evt.preventDefault();
         console.log(evt.target.comment.value)
+        const response = await axios.post(`http://localhost:8000/comment`, {
+            'postId': post._id,
+            'userId': authUser,
+            'text': evt.target.comment.value
+        }, { withCredentials: true });
+
+        console.log(response.data);
+
+        setTrigger(prev => !prev);
     }
 
 
@@ -55,11 +64,11 @@ const ViewSinglePost = () => {
                         {post.author && post.author._id === authUser ? <p><strong>You</strong></p> : 'hi'}
                         <p>{post.text}</p>
                         <div className='flex gap-[5px]'>
-                            <button onClick={(evt) => toggleVote(evt, post, 'like')} className='border p-1' name='like'>
+                            <button onClick={(evt) => toggleVote(evt, 'like')} className='border p-1' name='like'>
                                 {post.likes.includes(authUser) ? <ThumbUpAltIcon /> : <ThumbUpOffAltIcon />}
                                 <span className='px-1'>{post.likes.length}</span>
                             </button>
-                            <button onClick={(evt) => toggleVote(evt, post, 'dislike')} className='border p-1' name='dislike'>
+                            <button onClick={(evt) => toggleVote(evt, 'dislike')} className='border p-1' name='dislike'>
                                 {post.dislikes.includes(authUser) ? <ThumbDownAltIcon /> : <ThumbDownOffAltIcon />}
                                 <span className='px-1'>{post.dislikes.length}</span>
                             </button>
@@ -85,6 +94,15 @@ const ViewSinglePost = () => {
                         </form>
                     </div>
                 </div>
+            </div>
+
+            <div>
+                {post && post.comments.map((post, i) => (
+                    <div key={i} className='border p-3'>
+                        <h1>{post.text}</h1>
+                        <p className='text-xs'>- {post.author.first} {post.author.last} | {post.date}</p>
+                    </div>
+                ))}
             </div>
 
         </div>

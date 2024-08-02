@@ -7,7 +7,12 @@ module.exports.getPosts = async (req, res) => {
 }
 
 module.exports.getSinglePost = async (req, res) => {
-    const post = await Post.findById(req.params.postId);
+    const post = await Post.findById(req.params.postId).populate('author').populate({
+        path: 'comments',
+        populate: {
+            path: 'author'
+        }
+    });
     res.json({ post })
 }
 
