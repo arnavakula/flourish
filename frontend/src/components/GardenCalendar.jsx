@@ -1,10 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import '../assets/styles/GardenCalendar.css';
 import data from '../seed/seed.json';
+import axios from "axios";
+import useAuth from "../hooks/useAuth";
 
 const GardenCalendar = () => {
+    const { authUser } = useAuth();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [disableAddButton, setDisableAddButton] = useState(true);
+    const [crops, setCrops] = useState([]);
+    const [userCrops, setUserCrops] = useState([]);
+
+    useEffect(() => {
+        const fetchAllCrops = async () => {
+            const response = await axios.get('http://localhost:8000/crop', { withCredentials: true });
+            setCrops(response.data.crops);
+        }
+
+        fetchAllCrops();
+    }, [])
     
     const openModal = () => {
         setIsModalOpen(true);
@@ -16,8 +30,15 @@ const GardenCalendar = () => {
         setIsModalOpen(false);
     }
 
-    const addCrop = (evt) => {
-        console.log(evt.target.crop.value);
+    const addCrop = async (evt) => {
+        evt.preventDefault();
+
+        await axios.post('http://localhost:8000/crop', {
+            'userId': authUser,
+            'cropId': evt.target.crop.value
+        })
+
+        closeModal(evt);
     }
 
     const toggleDisable = (evt) => {
@@ -41,8 +62,8 @@ const GardenCalendar = () => {
                             <label htmlFor='crop' className="p-2">Select crop</label>
                             <select onChange={toggleDisable} defaultValue='' name='crop'>
                                 <option value='' disabled>Select a crop below</option>
-                                {Object.keys(data).map(((key, i) => (
-                                    <option key={i} value={key}>{key}</option>
+                                {crops.map(((crop, i) => (
+                                    <option key={i} value={crop._id}>{crop['name']}</option>
                                 )))}
                             </select>
                             <br />

@@ -13,6 +13,7 @@ const userRoutes = require('./routes/userRoutes');
 const plantRoutes = require('./routes/plantRoutes');
 const postRoutes = require('./routes/postRoutes');
 const commentRoutes = require('./routes/commentRoutes');
+const cropRoutes = require('./routes/cropRoutes');
 
 const dbUrl ='mongodb://127.0.0.1:27017/plantDisease';
 const port = 8000;
@@ -61,6 +62,7 @@ app.use('/user', userRoutes);
 app.use('/plant', plantRoutes);
 app.use('/post', postRoutes);
 app.use('/comment', commentRoutes);
+app.use('/crop', cropRoutes);
 
 app.all('*', (req, res, next) => {
     console.log('FALLBACK ERROR');

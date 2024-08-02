@@ -44,6 +44,12 @@ const UserSchema = new mongoose.Schema({
             ref: 'Post'
         }
     ],
+    crops: [
+        {
+            type: mongoose.Schema.ObjectId,
+            ref: 'Crop'
+        }
+    ]
 });
 
 UserSchema.plugin(passportLocalMongoose);
