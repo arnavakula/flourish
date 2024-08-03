@@ -46,8 +46,17 @@ const UserSchema = new mongoose.Schema({
     ],
     crops: [
         {
-            type: mongoose.Schema.ObjectId,
-            ref: 'Crop'
+            crop: {
+                type: mongoose.Schema.ObjectId,
+                ref: 'Crop'
+            },
+            date: {
+                type: Date,
+                default: Date.now
+            },
+            quantity: {
+                type: Number
+            }
         }
     ]
 });

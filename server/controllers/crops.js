@@ -7,13 +7,9 @@ module.exports.getAllCrops = async (req, res) => {
 }   
 
 module.exports.addCrop = async (req, res) => {
-    const { userId, cropId } = req.body;
+    const { userId, cropId, quantity } = req.body;
 
-    const crop = await Crop.findById(cropId);
-    const user = await User.findById(userId);
-    
-    user.crops.push(crop);
-    await user.save();
+    await User.findByIdAndUpdate(userId, { $push: {crops: { 'crop': cropId, quantity }}})
 
     res.json({});
 }
@@ -21,7 +17,7 @@ module.exports.addCrop = async (req, res) => {
 module.exports.getUserCrops = async (req, res) => {
     const { userId } = req.params;
 
-    const user = await User.findById(userId).populate('crops');
+    const user = await User.findById(userId).populate('crops.crop');
     
     res.json({ crops: user.crops });
 }
