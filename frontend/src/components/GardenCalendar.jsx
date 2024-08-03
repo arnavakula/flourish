@@ -12,12 +12,15 @@ const GardenCalendar = () => {
     const [userCrops, setUserCrops] = useState([]);
 
     useEffect(() => {
-        const fetchAllCrops = async () => {
+        const fetchCrops = async () => {
             const response = await axios.get('http://localhost:8000/crop', { withCredentials: true });
             setCrops(response.data.crops);
+
+            const userCrops = await axios.get(`http://localhost:8000/crop/user/${authUser}`, { withCredentials: true});
+            setUserCrops(userCrops.data.crops);
         }
 
-        fetchAllCrops();
+        fetchCrops();
     }, [])
     
     const openModal = () => {
@@ -38,6 +41,9 @@ const GardenCalendar = () => {
             'cropId': evt.target.crop.value
         })
 
+        const userCrops = await axios.get(`http://localhost:8000/crop/user/${authUser}`, { withCredentials: true});
+        setUserCrops(userCrops.data.crops);
+
         closeModal(evt);
     }
 
@@ -52,6 +58,12 @@ const GardenCalendar = () => {
         <div className='w-[15%] h-full border-2 border-orange-800 flex flex-col items-center'>
             <h1>My Crops</h1>
             <button onClick={openModal}>+ Add crop</button>
+            <hr className="w-[80%] h-[1px] my-4 bg-gray-200 border-0 dark:bg-gray-700" />
+            {userCrops.map((crop, i) => (
+                <div key={i}>
+                    <h1>{crop.name}</h1>
+                </div>
+            ))}
         </div>
         {isModalOpen && (
                 <div className='modal'>

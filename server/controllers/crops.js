@@ -17,3 +17,11 @@ module.exports.addCrop = async (req, res) => {
 
     res.json({});
 }
+
+module.exports.getUserCrops = async (req, res) => {
+    const { userId } = req.params;
+
+    const user = await User.findById(userId).populate('crops');
+    
+    res.json({ crops: user.crops });
+}

@@ -7,5 +7,6 @@ router.route('/')
     .get(crops.getAllCrops)
     .post(crops.addCrop)
 
-    
+router.route('/user/:userId')
+    .get(crops.getUserCrops)  
 module.exports = router;
