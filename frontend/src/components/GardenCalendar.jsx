@@ -4,6 +4,7 @@ import axios from "axios";
 import useAuth from "../hooks/useAuth";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import useLocalStorage from "../hooks/useLocalStorage";
+import CropDropdown from "./CropDropdown";
 
 const pastelColors = [
     "#E6E6FA",
@@ -28,7 +29,19 @@ const pastelColors = [
     "#F5FFFA"  
 ];
 
+const monthNames = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+];
 
+const getCurrentDate = () => {
+    const newDate = new Date()
+    const date = newDate.getDate();
+    const month = newDate.getMonth();
+    const year = newDate.getFullYear();
+
+    return `${monthNames[month]} ${date}, ${year}`;
+}
 
 const capitalize = (s) => {
     return s.toString().charAt(0).toUpperCase() + s.toString().slice(1);
@@ -44,12 +57,6 @@ const GardenCalendar = () => {
     const [userCrops, setUserCrops] = useState([]);
     const [colorIndex, setColorIndex] = useState(Number(getItem('colorIndex')));
 
-    const makeSchedule = async () => {
-        const response = await axios.post('http://localhost:8000/crop/schedule', {
-            userCrops
-        }, {withCredentials: true})
-    }
-
     const getUserCrops = async () => {
         const userCrops = await axios.get(`http://localhost:8000/crop/user/${authUser}`, { withCredentials: true });
 
@@ -64,7 +71,6 @@ const GardenCalendar = () => {
         setUserCrops(sortedCrops);
     }
 
-    console.log(userCrops);
 
     useEffect(() => {
         const fetchCrops = async () => {
@@ -119,21 +125,27 @@ const GardenCalendar = () => {
 
     return (
         <>
-            <div className='w-[15%] h-full border-2 border-orange-800 flex flex-col'>
-                <h1 className="mx-auto mt-[4%]">My Crops</h1>
-                <button onClick={openModal}>+ Add crop</button>
-                <button onClick={makeSchedule}> Test API </button>
-                <hr className="mx-auto w-[90%] h-[1px] my-4 bg-gray-200 border-0 dark:bg-gray-700" />
+            <div className='w-[20%] h-full flex flex-col border rounded-lg bg-[#ffffff] shadow-md overflow-y-auto'>
+                <h1 className='mx-auto mt-[6%] mb-[4%] text-[2vw] text-[#2e2c2a] font-bold'>My Crops</h1>
+                <button onClick={openModal} className='w-auto px-2 mx-auto rounded-xl text-[#63ab34] text-[1.1vw] hover:scale-110 transition ease-in-out'>+ Add crop</button>
+                <h3 className="font-light text-xs ml-[4%] italic mt-[6%] mb-[2%]">Grouped by crop type</h3>
                 {Object.keys(userCrops).map((crop, i) => (
-                    <div key={i} className="ml-[4%] py-3">
-                        <div className="flex justify-start gap-[1%] items-center">
-                            <KeyboardArrowDownIcon fontSize="small" />
+                    <CropDropdown key={i} userCrops={userCrops} crop={crop}/>
+                ))}
+            </div>
+            <div className="w-full h-full">
+                <h2>Tasks {getCurrentDate()}</h2>
+                {Object.keys(userCrops).map((crop, i) => (
+                    <div key={i} className="">
+                        <div className="">
                             <h2>{capitalize(crop)}</h2>
                         </div>
-                        <div className="ml-[10%]">
+                        <div className="">
                             {userCrops[crop].map((bunch, j) => (
                                 <div key={j} >
-                                    <h2 style={{backgroundColor: `${bunch.color}`}} className={`border w-[90%] mx-auto text-center rounded-lg`}>{capitalize(crop)} - {bunch.quantity} </h2>
+                                    {Object.keys(bunch.schedule).map((key, k) => (
+                                        <div key={k}>{capitalize(key)}</div>
+                                    ))}
                                 </div>
                             ))}
                         </div>

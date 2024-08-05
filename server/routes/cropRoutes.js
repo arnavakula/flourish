@@ -10,7 +10,4 @@ router.route('/')
 router.route('/user/:userId')
     .get(crops.getUserCrops)  
 
-router.route('/schedule')
-    .post(crops.makeSchedule)
-
 module.exports = router;

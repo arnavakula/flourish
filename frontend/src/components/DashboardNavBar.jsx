@@ -8,7 +8,7 @@ const formatTabName = (tab) => {
 const DashboardNavBar = ({ tabs, currTab }) => {
 
     return (
-        <div className="flex w-[100vw] min-h-[8vh] bg-[#492b40] border-b-[0.5px] border-slate-200 ">
+        <div className="flex w-[100vw] min-h-[10vh] bg-[#14452f] border-b-[0.5px] border-slate-200 ">
             <div className="w-[20%] flex items-center justify-center text-[1.5rem] text-white font-black antialiased">
                 <GrassIcon className='mr-[5px]'/>
                 <h2>Flourish</h2>
@@ -19,7 +19,7 @@ const DashboardNavBar = ({ tabs, currTab }) => {
                         key={i} 
                         id={tab} 
                         to={`/dashboard/${tab}`}
-                        className={`w-[10%] flex items-center justify-center cursor-pointer ${currTab === tab ? 'text-white border-b-[3px] border-[#f3563e]' : ''}`}>
+                        className={`w-[10%] flex items-center justify-center cursor-pointer ${currTab === tab ? 'text-white border-b-[3px] border-[#f3563e] pt-[3px] transform: scale-105' : ''}`}>
                             {formatTabName(tab)}
                     </Link>
                     

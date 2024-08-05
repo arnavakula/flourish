@@ -22,7 +22,7 @@ module.exports.addCrop = async (req, res) => {
                 role: 'user', 
                 content: `I need a gardening schedule based on the following crop information and location. 
                 Crop information: ${JSON.stringify(crop)}. 
-                I want to plant starting from ${`today`}. Location: zip code ${`78641`}. 
+                I want to plant starting from ${date}. Location: zip code ${`78641`}. 
                 Please provide a schedule with detailed steps. I want this schedule in an object format.
                 Create an object such that the keys are the steps, and for each key the value describes the step.
                 Each key should have a start date, end date, and a very detailed description of what to do.
@@ -56,6 +56,3 @@ module.exports.getUserCrops = async (req, res) => {
     res.json({ crops: user.crops });
 }
 
-module.exports.makeSchedule = () => {
-
-}

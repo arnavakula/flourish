@@ -6,15 +6,15 @@ import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 
 const YourGarden = () => {
     return (
-        <div className='w-[100%] h-full flex'>
-            <div className='h-[100%] border-2 border-green-800 w-[5%] flex flex-col gap-[10px] pt-[10px]'>
+        <div className='w-[100%] h-full flex bg-[#f5f4f2] p-4'>
+            {/* <div className='h-[100%] border-2 border-green-800 w-[5%] flex flex-col gap-[10px] pt-[10px]'>
                 <Link to='/dashboard/your-garden' className='mx-auto'>
                     <CalendarMonthIcon fontSize='large'/>
                 </Link>
                 <Link to='/dashboard/your-garden/list-view' className='mx-auto'>
                     <FormatListBulletedIcon fontSize='large'/>
                 </Link>
-            </div>
+            </div> */}
             <Outlet />
         </div>
     )
