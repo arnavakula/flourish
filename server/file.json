@@ -1,0 +1,22 @@
+{
+  "germination": {
+    "start_date": "2023-10-10",
+    "end_date": "2023-10-31",
+    "description": "Begin by preparing your onion seeds for germination. Soak the seeds in water for a few hours to encourage quicker sprouting. Plant the seeds in seed trays or pots filled with a light seed starting mix. Ensure the seeds are spaced about 0.1 inches apart. Keep the soil consistently moist but not waterlogged, and place the trays in a location that receives full sun or part shade. Maintain a temperature of around 65-75°F (18-24°C) for optimal germination. Expect germination to occur within 8 to 21 days."
+  },
+  "transplanting": {
+    "start_date": "2023-10-31",
+    "end_date": "2023-11-14",
+    "description": "Once the onion seedlings have grown to about 4-6 inches in height and have developed a few sets of true leaves, it's time to transplant them outdoors. Select a well-drained area in your garden that receives full sun to part shade. Prepare the soil by loosening it and adding compost to improve fertility. Dig holes about 4 inches apart and the appropriate depth, transplanting each seedling carefully, ensuring that the roots are covered but the crown (top part of the bulb) is slightly above the soil. Water the newly transplanted onions well to help them settle in."
+  },
+  "growing": {
+    "start_date": "2023-11-14",
+    "end_date": "2024-01-31",
+    "description": "Monitor the growth of your onions during this period. Water the plants regularly to keep the soil consistently moist, but avoid overwatering, as onions can be sensitive to saturated soil. Apply a light feeding of balanced fertilizer every few weeks, as onions are light feeders. Control weeds in the bed to reduce competition for nutrients and moisture. Ensure that the plants receive at least 14 hours of daylight, and be prepared to cover them if temperatures fall below their hardiness zone range of 3 to 9."
+  },
+  "harvesting": {
+    "start_date": "2024-02-01",
+    "end_date": "2024-02-07",
+    "description": "Harvest onions when the tops turn yellow and start to fall over, which indicates they are mature. Use a garden fork or spade to gently lift the bulbs out of the soil, being careful not to damage them. Allow the harvested onions to dry in a shaded, well-ventilated area for a few days before cutting off the tops and roots. Store the dry, cured onions in a cool, dark place with good air circulation for long-term storage."
+  }
+}

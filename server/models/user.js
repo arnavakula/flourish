@@ -56,6 +56,12 @@ const UserSchema = new mongoose.Schema({
             },
             quantity: {
                 type: Number
+            },
+            color: {
+                type: String
+            },
+            schedule: {
+                
             }
         }
     ]
