@@ -5,28 +5,57 @@ import useAuth from "../hooks/useAuth";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import useLocalStorage from "../hooks/useLocalStorage";
 import CropDropdown from "./CropDropdown";
+import SpaIcon from '@mui/icons-material/Spa';
+
+
+const hexToRgb = (hex) => {
+    const bigint = parseInt(hex.slice(1), 16);
+    const r = (bigint >> 16) & 255;
+    const g = (bigint >> 8) & 255;
+    const b = bigint & 255;
+    return `${r}, ${g}, ${b}`;
+};
+
+const darkenColor = (hex, percent) => {
+    const bigint = parseInt(hex.slice(1), 16);
+    let r = (bigint >> 16) & 255;
+    let g = (bigint >> 8) & 255;
+    let b = bigint & 255;
+
+    r = Math.max(0, Math.min(255, r - Math.round(r * (percent / 100))));
+    g = Math.max(0, Math.min(255, g - Math.round(g * (percent / 100))));
+    b = Math.max(0, Math.min(255, b - Math.round(b * (percent / 100))));
+
+    return `#${(1 << 24 | r << 16 | g << 8 | b).toString(16).slice(1)}`;
+};
+
+const getTaskIcon = (task, classStr) => {
+    if (task === 'germination') {
+        return <SpaIcon className={`${classStr}`} />
+    }
+}
 
 const pastelColors = [
     "#E6E6FA",
-    "#98FF98", 
+    "#98FF98",
     "#FFDAB9",
-    "#87CEEB", 
-    "#F4C2C2", 
-    "#FFFFE0", 
-    "#F08080", 
-    "#AFEEEE", 
-    "#98FB98", 
-    "#C5CBE1", 
-    "#FFD1B3", 
-    "#B0E0E6", 
-    "#FFE4E1", 
-    "#FFDAB9", 
-    "#D8BFD8", 
-    "#FFA07A", 
-    "#D7BDE2", 
-    "#FFC0CB", 
-    "#FFFACD", 
-    "#F5FFFA"  
+    "#87CEEB",
+    "#F4C2C2",
+    "#FFFFE0",
+    "#F08080",
+    "#AFEEEE",
+    "#98FB98",
+    "#C5CBE1",
+    "#FFD1B3",
+    "#B0E0E6",
+    "#FFE4E1",
+    "#FFDAB9",
+    "#D8BFD8",
+    "#FFA07A",
+    "#D7BDE2",
+    "#FFC0CB",
+    "#FFFACD",
+    "#F5FFFA"
 ];
 
 const monthNames = [
@@ -35,11 +64,21 @@ const monthNames = [
 ];
 
 const getCurrentDate = () => {
-    const newDate = new Date()
+    const newDate = new Date();
     const date = newDate.getDate();
     const month = newDate.getMonth();
     const year = newDate.getFullYear();
 
+    return `${monthNames[month]} ${date}, ${year}`;
+}
+
+const currentDate = {
+    date: new Date().getDate(),
+    month: new Date().getMonth(),
+    year: new Date().getFullYear()
+}
+
+const formatDate = (date, month, year) => {
     return `${monthNames[month]} ${date}, ${year}`;
 }
 
@@ -70,6 +109,8 @@ const GardenCalendar = () => {
 
         setUserCrops(sortedCrops);
     }
+
+    console.log(userCrops);
 
 
     useEffect(() => {
@@ -125,26 +166,48 @@ const GardenCalendar = () => {
 
     return (
         <>
-            <div className='w-[20%] h-full flex flex-col border rounded-lg bg-[#ffffff] shadow-md overflow-y-auto'>
-                <h1 className='mx-auto mt-[6%] mb-[4%] text-[2vw] text-[#2e2c2a] font-bold'>My Crops</h1>
+            <div className='w-[25%] h-full flex flex-col border rounded-lg bg-[#ffffff] shadow-md overflow-y-auto'>
+                <h1 className='mx-auto mt-[2vh] mb-[4%] text-[2vw] text-[#2e2c2a] font-bold'>My Crops</h1>
                 <button onClick={openModal} className='w-auto px-2 mx-auto rounded-xl text-[#63ab34] text-[1.1vw] hover:scale-110 transition ease-in-out'>+ Add crop</button>
                 <h3 className="font-light text-xs ml-[4%] italic mt-[6%] mb-[2%]">Grouped by crop type</h3>
                 {Object.keys(userCrops).map((crop, i) => (
-                    <CropDropdown key={i} userCrops={userCrops} crop={crop}/>
+                    <CropDropdown key={i} userCrops={userCrops} crop={crop} />
                 ))}
             </div>
-            <div className="w-full h-full">
-                <h2>Tasks {getCurrentDate()}</h2>
+            <div className="w-full h-full border rounded-lg bg-[#ffffff] ml-[1%] pl-[2%]">
+                <div className="mt-[2vh] flex items-center gap-[1%] w-[95%]">
+                    <h2 className="text-[2vw] text-[#2e2c2a] font-bold">Tasks</h2>
+                    <h2 className="text-[1.2vw] mb-[-1px] font-semibold">{formatDate(currentDate.date, currentDate.month, currentDate.year)}</h2>
+                </div>
                 {Object.keys(userCrops).map((crop, i) => (
                     <div key={i} className="">
                         <div className="">
-                            <h2>{capitalize(crop)}</h2>
-                        </div>
-                        <div className="">
+                            <div>
+                                <div className="w-[80%] h-[4vh] flex items-center gap-[1%] justify-end px-[1%]">
+                                    <h3 className="text-[#2e2c2a] text-[1rem] font-semibold w-[15%] text-center">Start date</h3>
+                                    <h3 className="text-[#2e2c2a] text-[1rem] font-semibold w-[15%] text-center">End date</h3>
+                                </div>
+                            </div>
                             {userCrops[crop].map((bunch, j) => (
                                 <div key={j} >
                                     {Object.keys(bunch.schedule).map((key, k) => (
-                                        <div key={k}>{capitalize(key)}</div>
+                                        <div key={k}>
+                                            <div className="w-[80%] h-[5vh] border flex items-center gap-[1%] rounded-lg px-[1%] bg-[#f5f4f2] mb-[0.5%]" style={{ borderLeft: `solid 5px ${darkenColor(bunch.color, 20)}` }}>
+                                                <h2>{getTaskIcon(key, '')}</h2>
+                                                <h2>{capitalize(key)}</h2>
+                                                <div className='text-xs border px-3 rounded-lg' style={{
+                                                    backgroundColor: `rgba(${hexToRgb(bunch.color)}, 0.8)`,
+                                                    borderColor: darkenColor(bunch.color, 20),
+                                                    borderWidth: '1px',
+                                                    borderStyle: 'solid'
+                                                }}
+                                                >{capitalize(crop)} - {bunch.quantity}</div>
+                                                <div className="flex-1"></div>
+                                                {console.log(bunch.schedule[key])}
+                                                <h3 className="text-sm  w-[15%] text-center">{monthNames[Number(bunch.schedule[key].start_date.substring(5, 7)) - 1].substring(0, 3)} {bunch.schedule[key].start_date.substring(8)}</h3>
+                                                <h3 className="text-sm  w-[15%] text-center">{monthNames[Number(bunch.schedule[key].end_date.substring(5, 7)) - 1].substring(0, 3)} {bunch.schedule[key].end_date.substring(8)}</h3>
+                                            </div>
+                                        </div>
                                     ))}
                                 </div>
                             ))}

@@ -35,7 +35,7 @@ const CropDropdown = ({ userCrops, crop }) => {
     return (
         <div className="ml-[4%]">
             <button className="flex justify-start gap-[5%] items-center" onClick={() => setExpandCrop(prev => !prev)}>
-                {expandCrop ? <KeyboardArrowUpIcon style={{ color: '#63ab34' }} fontSize="small" /> : <KeyboardArrowDownIcon style={{ color: '#63ab34' }} fontSize="small" />}
+                {expandCrop ? <KeyboardArrowDownIcon style={{ color: '#63ab34' }} fontSize="small" /> : <KeyboardArrowUpIcon style={{ color: '#63ab34' }} fontSize="small" />}
                 <h2>{capitalize(crop)}</h2>
             </button>
 

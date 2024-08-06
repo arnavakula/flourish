@@ -25,7 +25,7 @@ module.exports.addCrop = async (req, res) => {
                 I want to plant starting from ${date}. Location: zip code ${`78641`}. 
                 Please provide a schedule with detailed steps. I want this schedule in an object format.
                 Create an object such that the keys are the steps, and for each key the value describes the step.
-                Each key should have a start date, end date, and a very detailed description of what to do.
+                Each key should have a start date (called start_date), end date (called end_date), and a very detailed description of what to do (called end_date).
                 Only return a String that contains the object (first character is { and last character is })
                 Here are some example keys: germination, growing, harvesting.
                 All time units are given in days unless otherwise specified. Make sure to emphasize the crop information.
