@@ -95,6 +95,8 @@ const GardenCalendar = () => {
     const [crops, setCrops] = useState([]);
     const [userCrops, setUserCrops] = useState([]);
     const [colorIndex, setColorIndex] = useState(Number(getItem('colorIndex')));
+    const [isTaskInfoOpen, setIsTaskInfoOpen] = useState(false);
+    const [taskInfo, setTaskInfo] = useState(null);
 
     const getUserCrops = async () => {
         const userCrops = await axios.get(`http://localhost:8000/crop/user/${authUser}`, { withCredentials: true });
@@ -109,8 +111,6 @@ const GardenCalendar = () => {
 
         setUserCrops(sortedCrops);
     }
-
-    console.log(userCrops);
 
 
     useEffect(() => {
@@ -164,6 +164,15 @@ const GardenCalendar = () => {
         }
     }
 
+    const handleTaskClick = (crop, stage, info) => {
+        console.log(crop);
+        console.log(stage);
+        console.log(info);
+
+        setIsTaskInfoOpen(true);
+        setTaskInfo({ crop, stage, info });
+    }
+
     return (
         <>
             <div className='w-[25%] h-full flex flex-col border rounded-lg bg-[#ffffff] shadow-md overflow-y-auto'>
@@ -192,7 +201,11 @@ const GardenCalendar = () => {
                                 <div key={j} >
                                     {Object.keys(bunch.schedule).map((key, k) => (
                                         <div key={k}>
-                                            <div className="w-[80%] h-[5vh] border flex items-center gap-[1%] rounded-lg px-[1%] bg-[#f5f4f2] mb-[0.5%]" style={{ borderLeft: `solid 5px ${darkenColor(bunch.color, 20)}` }}>
+                                            <button
+                                                onClick={() => handleTaskClick(crop, key, bunch.schedule[key])}
+                                                className="w-[80%] h-[5vh] border flex items-center gap-[1%] rounded-lg px-[1%] bg-[#f5f4f2] mb-[0.5%] bg-opacity-50 hover:bg-opacity-100"
+                                                style={{ borderLeft: `solid 5px ${darkenColor(bunch.color, 20)}` }}
+                                            >
                                                 <h2>{getTaskIcon(key, '')}</h2>
                                                 <h2>{capitalize(key)}</h2>
                                                 <div className='text-xs border px-3 rounded-lg' style={{
@@ -203,10 +216,9 @@ const GardenCalendar = () => {
                                                 }}
                                                 >{capitalize(crop)} - {bunch.quantity}</div>
                                                 <div className="flex-1"></div>
-                                                {console.log(bunch.schedule[key])}
                                                 <h3 className="text-sm  w-[15%] text-center">{monthNames[Number(bunch.schedule[key].start_date.substring(5, 7)) - 1].substring(0, 3)} {bunch.schedule[key].start_date.substring(8)}</h3>
                                                 <h3 className="text-sm  w-[15%] text-center">{monthNames[Number(bunch.schedule[key].end_date.substring(5, 7)) - 1].substring(0, 3)} {bunch.schedule[key].end_date.substring(8)}</h3>
-                                            </div>
+                                            </button>
                                         </div>
                                     ))}
                                 </div>
@@ -241,6 +253,20 @@ const GardenCalendar = () => {
                                 <button disabled={disableAddButton} className={`w-[15%] p-1 border rounded-xl ${disableAddButton ? 'bg-red-400 text-gray-200' : 'bg-red-500 text-white'}`}>Add</button>
                             </div>
                         </form>
+                    </div>
+                </div>
+            )}
+
+            {isTaskInfoOpen && (
+                <div className='modal'>
+                    <div className='modal-content'>
+                        <span className='close' onClick={() => setIsTaskInfoOpen(false)}>&times;</span>
+                        <h2 className="pb-2 font-bold text-[1.5rem]">{capitalize(taskInfo.crop)} - {capitalize(taskInfo.stage)}</h2>
+                        <p>{monthNames[Number(taskInfo.info.start_date.substring(5, 7)) - 1].substring(0, 3)} {taskInfo.info.start_date.substring(8)} 
+                            {' '}-{' '} 
+                             {monthNames[Number(taskInfo.info.end_date.substring(5, 7)) - 1].substring(0, 3)} {taskInfo.info.end_date.substring(8)}
+                        </p>
+                        <p>{taskInfo.info.description}</p>
                     </div>
                 </div>
             )}
