@@ -1,4 +1,5 @@
 import GrassIcon from '@mui/icons-material/Grass';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Link } from 'react-router-dom';
 
 const formatTabName = (tab) => {
@@ -8,11 +9,10 @@ const formatTabName = (tab) => {
 const DashboardNavBar = ({ tabs, currTab }) => {
 
     return (
-        <div className="flex w-[100vw] min-h-[10vh] bg-[#14452f] border-b-[0.5px] border-slate-200 ">
-            <div className="w-[20%] flex items-center justify-center text-[1.5rem] text-white font-black antialiased">
-                <GrassIcon className='mr-[5px]'/>
-                <h2>Flourish</h2>
-            </div>
+        <div className="flex w-[100vw] min-h-[10vh] max-h-[10vh] bg-[#14452f] border-b-[0.5px] border-slate-200 ">
+            <Link to='/' className="w-[20%] flex items-center justify-center text-[1.1rem] text-white font-semibold antialiased ">
+                <h2><ArrowBackIcon className='mr-[5px]'/>Back to home</h2>
+            </Link>
             <div className="dashboard-nav-element w-[60%] flex justify-center gap-[4%] font-light text-[#bbb0b8]">
                 {tabs.map((tab, i) => 
                     <Link 

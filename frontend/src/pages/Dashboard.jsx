@@ -6,12 +6,12 @@ import useLocalStorage from '../hooks/useLocalStorage';
 
 
 const Dashboard = () => {
-    const tabs = ['your-garden', 'popular', 'all-plants', 'calendar', 'community'];
+    const tabs = ['your-garden', 'popular', 'community'];
     const location = useLocation();
     const navigate = useNavigate();
-    const { authUser, isLoggedIn } = useContext(AuthContext);
+    const { authUser } = useContext(AuthContext);
     const [currTab, setCurrTab] = useState('');
-    const { getItem } = useLocalStorage();
+
 
     useEffect(() => {
         if(!authUser){

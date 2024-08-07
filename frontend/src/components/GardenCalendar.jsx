@@ -97,6 +97,7 @@ const GardenCalendar = () => {
     const [colorIndex, setColorIndex] = useState(Number(getItem('colorIndex')));
     const [isTaskInfoOpen, setIsTaskInfoOpen] = useState(false);
     const [taskInfo, setTaskInfo] = useState(null);
+    const [formInfo, setFormInfo] = useState({'quantity': 1});
 
     const getUserCrops = async () => {
         const userCrops = await axios.get(`http://localhost:8000/crop/user/${authUser}`, { withCredentials: true });
@@ -159,7 +160,10 @@ const GardenCalendar = () => {
     }
 
     const toggleDisable = (evt) => {
-        if (evt.target.value != '') {
+        const newData = {...formInfo, [evt.target.name]: evt.target.value}
+        setFormInfo(newData);
+        
+        if(newData.quantity && newData.crop && newData.date){
             setDisableAddButton(false);
         }
     }
@@ -175,7 +179,7 @@ const GardenCalendar = () => {
 
     return (
         <>
-            <div className='w-[25%] h-full flex flex-col border rounded-lg bg-[#ffffff] shadow-md overflow-y-auto'>
+            <div className='w-[25%] h-[85vh] my-auto flex flex-col border rounded-lg bg-[#ffffff] shadow-md overflow-y-auto'>
                 <h1 className='mx-auto mt-[2vh] mb-[4%] text-[2vw] text-[#2e2c2a] font-bold'>My Crops</h1>
                 <button onClick={openModal} className='w-auto px-2 mx-auto rounded-xl text-[#63ab34] text-[1.1vw] hover:scale-110 transition ease-in-out'>+ Add crop</button>
                 <h3 className="font-light text-xs ml-[4%] italic mt-[6%] mb-[2%]">Grouped by crop type</h3>
@@ -183,7 +187,7 @@ const GardenCalendar = () => {
                     <CropDropdown key={i} userCrops={userCrops} crop={crop} />
                 ))}
             </div>
-            <div className="w-full h-full border rounded-lg bg-[#ffffff] ml-[1%] pl-[2%]">
+            <div className="w-full h-[85vh] my-auto border rounded-lg bg-[#ffffff] ml-[1%] pl-[2%] overflow-y-auto">
                 <div className="mt-[2vh] flex items-center gap-[1%] w-[95%]">
                     <h2 className="text-[2vw] text-[#2e2c2a] font-bold">Tasks</h2>
                     <h2 className="text-[1.2vw] mb-[-1px] font-semibold">{formatDate(currentDate.date, currentDate.month, currentDate.year)}</h2>
@@ -230,23 +234,36 @@ const GardenCalendar = () => {
 
             {isModalOpen && (
                 <div className='modal'>
-                    <div className='modal-content'>
+                    <div className='modal-content text-[#2e2c2a]'>
                         <span className='close' onClick={closeModal}>&times;</span>
-                        <h2 className="pb-4 font-bold text-[1.5rem]">Add a crop to your garden</h2>
-                        <form onSubmit={addCrop}>
-                            <label htmlFor='crop' className="p-2">Select crop</label>
-                            <select onChange={toggleDisable} defaultValue='' name='crop'>
-                                <option value='' disabled>Select a crop below</option>
-                                {crops.map(((crop, i) => (
-                                    <option key={i} value={crop._id}>{crop['name']}</option>
-                                )))}
-                            </select>
-                            <br />
-                            <label className='p-2' htmlFor='quantity'>Select quantity</label>
-                            <input name='quantity' type='number' />
-                            <br />
-                            <label className='p-2' htmlFor='date'>Select start date</label>
-                            <input name='date' type='date' />
+                        <h2 className="font-extrabold text-[1.5rem]">Add a crop to your garden</h2>
+                        <hr className="mx-auto w-[100%] h-[2px] my-4 bg-[#63ab34]" />
+                        <form onChange={toggleDisable} onSubmit={addCrop} className='font-semibold px-[4%] flex flex-col gap-[1rem]'>
+                            <div className="flex items-center">
+                                <div className='w-[40%]'>
+                                    <label htmlFor='crop' className='text-[1.1rem]'>Select crop</label>
+                                </div>
+                                <select defaultValue='' name='crop' className='rounded-full rounded-xl w-[60%] text-sm font-medium p-2'>
+                                    <option value='' disabled>Select a crop below</option>
+                                    {crops.map(((crop, i) => (
+                                        <option key={i} value={crop._id}>{capitalize(crop['name'])}</option>
+                                    )))}
+                                </select>
+                            </div>
+
+                            <div className="flex items-center">
+                                <div className='w-[40%]'>
+                                    <label htmlFor='crop' className='text-[1.1rem]'>Select quantity</label>
+                                </div>
+                                <input min='1' defaultValue='1' name='quantity' type='number' className='rounded-full rounded-xl w-[60%] text-sm font-medium p-2'/>
+                            </div>
+                            
+                            <div className="flex items-center">
+                            <div className='w-[40%]'>
+                                    <label htmlFor='date' className='text-[1.1rem]'>Select start date</label>
+                                </div>
+                                <input name='date' type='date' className='rounded-full rounded-xl w-[60%] text-sm font-medium p-2'/>
+                            </div>
 
                             <div className="flex justify-end gap-[5px]">
                                 <button onClick={closeModal} className='w-[15%] p-1 border rounded-xl'>Cancel</button>
