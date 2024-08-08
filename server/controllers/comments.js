@@ -10,13 +10,11 @@ module.exports.uploadComment = async (req, res) => {
     const author = await User.findById(userId);
     const post = await Post.findById(postId);
 
-    const comment = new Comment({ author, post, text });
+    const comment = new Comment({ author, text });
     await comment.save();
 
-    author.comments.push(comment);
     post.comments.push(comment);
 
-    await author.save();
     await post.save();
 
     res.json({ comment });

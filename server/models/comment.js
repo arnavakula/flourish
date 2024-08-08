@@ -1,10 +1,6 @@
 const mongoose = require('mongoose');
 
 const CommentSchema = new mongoose.Schema({
-    post: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Post'
-    },
     text: {
         type: String,
         required: true
@@ -14,10 +10,12 @@ const CommentSchema = new mongoose.Schema({
         ref: 'User'
     },
     likes: {
-        type: Number
+        type: Number,
+        default: 0
     },
     dislikes: {
-        type: Number
+        type: Number,
+        default: 0
     },
     date: {
         type: Date,

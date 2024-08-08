@@ -1,5 +1,6 @@
 const Post = require('../models/post');
 const User = require('../models/user');
+const mongoose = require('mongoose');
 
 module.exports.getPosts = async (req, res) => {
     const posts = await Post.find({}).populate('author');
@@ -30,17 +31,16 @@ module.exports.uploadPost = async (req, res) => {
 }
 
 module.exports.deletePost = async (req, res) => {
-    const user = await User.findById(req.body.user);
-
-    req.json({message: 'deleted post'})
+    const { postId } = req.params;
+    const post = await Post.findById(postId);
+    await User.findByIdAndUpdate(post.author, {$pull: {posts: postId}})
+    await Post.findByIdAndDelete(req.params.postId);
+    res.json({message: 'deleted post'})
 }
 
 module.exports.toggleVote = async (req, res) => {
     const { userId, postId, voteType } = req.body;
     const user = await User.findById(userId);
-
-
-    
     const post = await Post.findById(postId);
     
     if(voteType === 'like'){

@@ -25,46 +25,37 @@ const Community = () => {
             setSort(newSort)
         }
     })
+    // 2e2c2a
+    // f5f4f2
 
     return (
         <>
-        <div className="flex w-[100vw] min-h-[14vh] bg-[#492b40] border-b-[0.5px] text-[#bbb0b8]">
+        <div className="flex w-[100vw] min-h-[14vh] bg-[#14452f] border-b-[0.5px] text-[#bbb0b8]">
             <div className="w-[20%] flex flex-col items-center justify-center">
                 <p className='text-[#bbb0b8] font-light'>Welcome to the community forum!</p>
                 <p className='font-bold'>Temp Temp</p>
             </div>
         </div>
-        <div className='w-[100vw] h-[100%] border-2 border-green-800 flex flex-row'>
-            <div className='LEFT-BAR w-[20%] h-[100%]'>
-                <div className='w-[100%] h-[15%] flex flex-col justify-start gap-[2px] mt-[1vh]'>
-                    <Link to='/dashboard/community/view?sort=all' className={`mx-auto border text-center item-center rounded-lg w-[60%] ${tab === 'view' && sort === 'all' ? 'bg-[#bbb0b8]' : ''}`}>
+        <div className='w-[100vw] h-[76vh] flex flex-row p-4 bg-[#f5f4f2]'>
+            <div className='LEFT-BAR w-[12%] h-[100%] pr-4 border-r-[1px] border-black'>
+                <div className='w-[100%] h-[15%] flex flex-col justify-start gap-[10%] mt-[4vh] '>
+                    <Link to='/dashboard/community/view?sort=all' className={`mx-auto text-center item-center rounded-lg w-[90%] hover:bg-[#e7e7e7] ${tab === 'view' && sort === 'all' ? 'bg-[#d4d4d4] hover:bg-[#d4d4d4]' : ''} `}>
                         <button className='w-[100%] h-[100%]'>
-                            <span className='flex justify-center gap-[8px]'><SignalCellularAltIcon /> All</span>
+                            <span className='flex gap-[8px] font-semibold text-[#2e2c2a]'><SignalCellularAltIcon className='scale-125 ml-[5%]' style={{color: '#7FB069'}}/> All Posts </span>
                         </button>
                     </Link>
-                    <Link to='/dashboard/community/view?sort=popular' className={`mx-auto border text-center item-center rounded-lg w-[60%] ${tab === 'view' && sort === 'popular' ? 'bg-[#bbb0b8]' : ''}`}>
-                        <button className='w-[100%] h-[100%]'>
-                            <span className='flex justify-center gap-[8px]'><TrendingUpIcon /> Popular</span>
-                        </button>
-                    </Link>
-
-                
-                </div>
-                <hr className='my-3 w-[75%] mx-auto '/>
-                <div className='w-[100%] h-[15%] flex flex-col justify-start gap-[2px] mt-[1vh]'>
-                    <Link to='/dashboard/community/create' className={`mx-auto border text-center item-center rounded-lg w-[60%] ${tab === 'create' ? 'bg-[#bbb0b8]' : ''}`}>
+                    <Link to='/dashboard/community/create' className={`mx-auto text-center item-center rounded-lg w-[90%] hover:bg-[#e7e7e7] ${tab === 'create' ? 'bg-[#d4d4d4] hover:bg-[#d4d4d4]' : ''}`}>
                             <button className='w-[100%] h-[100%]'>
-                                <span className='flex justify-center gap-[8px]'><AddIcon /> Create Post</span>
+                                <span className='flex gap-[8px] font-semibold text-[#2e2c2a]'><AddIcon className='scale-125 ml-[5%]' style={{color: '#7FB069'}}/> Create Post </span>
                             </button>
                     </Link>
                 </div>
             </div>
-            <div className='CENTER-CONTENT w-[80%] h-[100%] border'>
-                <Outlet />
-            </div>
-            <div className='w-[20%] h-[100%] border'>
+            
+            <Outlet />
+            
 
-            </div>
+            
 
         </div>
         </>

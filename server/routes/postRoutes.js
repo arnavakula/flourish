@@ -6,10 +6,10 @@ const router = express.Router();
 router.route('/')
     .get(posts.getPosts)
     .post(posts.uploadPost)
-    .delete(posts.deletePost)
 
 router.route('/:postId')
     .get(posts.getSinglePost)
+    .delete(posts.deletePost)
 
 router.route('/vote')
     .post(posts.toggleVote)
