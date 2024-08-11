@@ -56,7 +56,6 @@ const ViewSinglePost = () => {
 
     const handleSubmit = async (evt) => {
         evt.preventDefault();
-        console.log(evt.target.comment.value)
         const response = await axios.post(`http://localhost:8000/comment`, {
             'postId': post._id,
             'userId': authUser,
@@ -65,9 +64,22 @@ const ViewSinglePost = () => {
 
         console.log(response.data);
 
+        setComment('');
+        setShowCommentButton(false);
         setTrigger(prev => !prev);
     }
 
+    const deleteComment = async (commentId) => {
+        console.log('deleting!', commentId);
+        const response = await axios.patch(`http://localhost:8000/comment`, {
+            'postId': post._id,
+            'commentId': commentId,
+        }, { withCredentials: true });
+
+        console.log('deleting!');
+
+        setTrigger(prev => !prev);
+    }
 
     return (
         <div className='w-[60%] h-[70vh] flex flex-col bg-white  m-4 overflow-y-auto border rounded-lg '>
@@ -102,7 +114,14 @@ const ViewSinglePost = () => {
                 <div className='flex'>
                     <div className='relative flex-grow'>
                         <form onSubmit={handleSubmit}>
-                            <input name='comment' onChange={(evt) => setComment(evt.target.value)} onFocus={() => setShowCommentButton(true)} className='w-full rounded-full border-2 pl-4 pr-20 py-2' placeholder='Write a comment...' />
+                            <input 
+                                name='comment' 
+                                value={comment}  // Bind input to comment state
+                                onChange={(evt) => setComment(evt.target.value)} 
+                                onFocus={() => setShowCommentButton(true)} 
+                                className='w-full rounded-full border-2 pl-4 pr-20 py-2' 
+                                placeholder='Write a comment...' 
+                            />
                             {showCommentButton && (
                                 <>
                                     <button
@@ -116,12 +135,16 @@ const ViewSinglePost = () => {
                     </div>
                 </div>
             </div>
-
+ 
             <div>
                 {post && post.comments.map((post, i) => (
                     <div key={i} className=' p-3'>
-                        <h1>{post.text}</h1>
+                        <div className='flex flex-row items-center gap-[10px]'>
+                            <h1>{post.text}</h1>
+                            {authUser == post.author._id && <button onClick={() => deleteComment(post._id)} className='text-red-800 font-bold'>&times;</button>}
+                        </div>
                         <p className='text-xs'>- {capitalize(post.author.first)} {capitalize(post.author.last).substring(0, 1)}. | {formatDistanceToNow(new Date(post.date), { addSuffix: true })}</p>
+                        
                     </div>
                 ))}
             </div>

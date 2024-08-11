@@ -33,7 +33,7 @@ module.exports.uploadPost = async (req, res) => {
 module.exports.deletePost = async (req, res) => {
     const { postId } = req.params;
     const post = await Post.findById(postId);
-    await User.findByIdAndUpdate(post.author, {$pull: {posts: postId}})
+    await User.findByIdAndUpdate(post.author, {$pull: {posts: postId}});
     await Post.findByIdAndDelete(req.params.postId);
     res.json({message: 'deleted post'})
 }

@@ -19,3 +19,12 @@ module.exports.uploadComment = async (req, res) => {
 
     res.json({ comment });
 }
+
+module.exports.deleteComment = async (req, res) => {
+    const { commentId, postId } = req.body;
+
+    await Post.findByIdAndUpdate(postId, {$pull: {comments: commentId}});
+    await Comment.findByIdAndDelete(commentId);
+
+    res.json({ message: 'deleted successfully!' });
+}
