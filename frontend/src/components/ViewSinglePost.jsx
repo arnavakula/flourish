@@ -7,6 +7,11 @@ import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import axios from 'axios';
+import { formatDistanceToNow } from 'date-fns';
+
+const capitalize = (s) => {
+    return s.toString().charAt(0).toUpperCase() + s.toString().slice(1);
+}
 
 const ViewSinglePost = () => {
     const { postId } = useParams();
@@ -16,6 +21,13 @@ const ViewSinglePost = () => {
     const [comment, setComment] = useState('');
     const [showCommentButton, setShowCommentButton] = useState(false);
     const navigate = useNavigate();
+
+    const tagMap = {
+        'Advice': '#D4EDDA',
+        'Question': '#D1ECF1',
+        'Discussion': '#FFF3CD',
+        'Help Needed': '#F8D7DA'
+    }
 
     useEffect(() => {
         const loadPosts = async () => {
@@ -58,16 +70,18 @@ const ViewSinglePost = () => {
 
 
     return (
-        <div className='border-2 border-green-200 w-[100%] flex flex-col'>
-            <div className='border p-4 w-[100%] flex gap-[2px]'>
+        <div className='w-[60%] h-[70vh] flex flex-col bg-white  m-4 overflow-y-auto border rounded-lg '>
+            <div className=' p-4 w-[100%] flex gap-[2px]'>
                 {post && (
                     <>
-                    <button onClick={() => navigate(-1)}className='h-min'>
-                        <ArrowBackIosNewIcon fontSize='small'/>
-                    </button>
                     <div>
-                        <h2 className='font-bold'>{post.title}<span className='font-light italic'> ({post.tag === 'None' ? '' : post.tag})</span></h2>
-                        {post.author && post.author._id === authUser ? <p><strong>You</strong></p> : 'hi'}
+                    <h2 className='font-bold text-[1.75rem] flex items-center gap-[3px]'>
+                                    <button onClick={() => navigate(-1)}className='h-min'>
+                                        <ArrowBackIosNewIcon fontSize='small'/>
+                                    </button>
+                                        <span>{capitalize(post.title)}</span>
+                                        <span style={{ backgroundColor: tagMap[post.tag] }} className='text-sm font-light mt-[1px] border border-gray-400 rounded-full px-3'>{post.tag}</span>
+                     </h2>
                         <p>{post.text}</p>
                         <div className='flex gap-[5px]'>
                             <button onClick={(evt) => toggleVote(evt, 'like')} className='border p-1' name='like'>
@@ -84,7 +98,7 @@ const ViewSinglePost = () => {
                 )}
             </div>
 
-            <div className='relative w-[100%] p-3'>
+            <div className='relative w-[100%] p-3 '>
                 <div className='flex'>
                     <div className='relative flex-grow'>
                         <form onSubmit={handleSubmit}>
@@ -105,9 +119,9 @@ const ViewSinglePost = () => {
 
             <div>
                 {post && post.comments.map((post, i) => (
-                    <div key={i} className='border p-3'>
+                    <div key={i} className=' p-3'>
                         <h1>{post.text}</h1>
-                        <p className='text-xs'>- {post.author.first} {post.author.last} | {post.date}</p>
+                        <p className='text-xs'>- {capitalize(post.author.first)} {capitalize(post.author.last).substring(0, 1)}. | {formatDistanceToNow(new Date(post.date), { addSuffix: true })}</p>
                     </div>
                 ))}
             </div>

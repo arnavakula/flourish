@@ -74,13 +74,20 @@ const ViewPosts = () => {
     }
 
     const handleDelete = async (postId) => {
-        await axios.delete(`http://localhost:8000/post/${postId}`);
-        console.log(`Deleted post ${postId}`);
+        try {
+            await axios.delete(`http://localhost:8000/post/${postId}`);
+        } catch(err) {
+            console.log(err);
+            console.log('could not delete post')
+        }
+
+        setActiveMenu(null);
+        setTrigger(prev => !prev);
     }
 
     return (
         <>
-            <div className='CENTER-CONTENT w-[60%] h-[100%] p-4 overflow-scroll border-r-[1px] border-black'>
+            <div className='CENTER-CONTENT w-[60%] h-[100%] p-4 overflow-y-auto border-r-[1px] border-black'>
                 <div className='p-3'>
                     {posts.map((post, i) => (
                         <div key={i} className='relative'>
@@ -125,7 +132,7 @@ const ViewPosts = () => {
                     ))}
                 </div>
             </div>
-            <div className='w-[28%] p-4'>
+            <div className='w-[28%] p-4 bg-[#f3f3f3]'>
                 <div className='w-[100%] border bg-white rounded-lg h-full mt-[1vh] p-4'>
                     <h2 className='font-bold text-[1.75rem]'> Announcements</h2>
                 </div>
