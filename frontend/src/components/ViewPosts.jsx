@@ -18,6 +18,7 @@ const ViewPosts = () => {
     const [trigger, setTrigger] = useState(false);
     const [activeMenu, setActiveMenu] = useState(null); // State to track the active popup menu
     const { authUser } = useAuth();
+    const apiUrl = import.meta.env.VITE_API_URL;
 
     const tagMap = {
         'Advice': '#D4EDDA',
@@ -28,7 +29,7 @@ const ViewPosts = () => {
 
     useEffect(() => {
         const loadPosts = async () => {
-            const response = await fetch(`http://localhost:8000/post`, {
+            const response = await fetch(`${apiUrl}/post`, {
                 method: 'GET'
             })
                 .then(response => response.json())
@@ -55,7 +56,7 @@ const ViewPosts = () => {
         evt.preventDefault();
         evt.stopPropagation();
 
-        const response = await axios.post(`http://localhost:8000/post/vote`, {
+        const response = await axios.post(`${apiUrl}/post/vote`, {
             'postId': post._id,
             'userId': authUser,
             voteType
@@ -75,7 +76,7 @@ const ViewPosts = () => {
 
     const handleDelete = async (postId) => {
         try {
-            await axios.delete(`http://localhost:8000/post/${postId}`);
+            await axios.delete(`${apiUrl}/post/${postId}`);
         } catch(err) {
             console.log(err);
             console.log('could not delete post')

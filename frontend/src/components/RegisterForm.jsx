@@ -10,11 +10,12 @@ const RegisterForm = () => {
     const [registerInfo, setRegisterInfo] = useState({});
     const [errorMessage, setErrorMessage] = useState(null);
     const navigate = useNavigate();
+    const apiUrl = import.meta.env.VITE_API_URL;
     
     const handleSubmit = async (evt) => {
       try {
           evt.preventDefault();
-          const response = await axios.post('http://localhost:8000/user/register', registerInfo, { withCredentials: true });
+          const response = await axios.post(`${apiUrl}/user/register`, registerInfo, { withCredentials: true });
 
           login(response.data.user);
           navigate('/dashboard');

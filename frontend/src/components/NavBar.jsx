@@ -11,10 +11,11 @@ const NavBar = ({ scrollToSection, section1Ref, section2Ref, section3Ref }) => {
     const { authUser, logout } = useAuth();
     const { getItem, removeItem } = useLocalStorage();
     const navigate = useNavigate();
+    const apiUrl = import.meta.env.VITE_API_URL;
 
     const handleLogout = async () => {
         try {
-            const response = await axios.get('http://localhost:8000/user/logout', { withCredentials: true });
+            const response = await axios.get(`${apiUrl}/user/logout`, { withCredentials: true });
             if (response.data.success) {
                 logout();
             }

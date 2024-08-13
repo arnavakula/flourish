@@ -6,13 +6,15 @@ import { useNavigate } from 'react-router-dom';
 const CreatePost = () => {
   const [postInfo, setPostInfo] = useState({});
   const { authUser } = useAuth();
-  const navigate = useNavigate();
+  const navigate = useNavigate(); 
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
     const data = {...postInfo, ['user']: authUser}
+   
     try {
-      const response = await axios.post('http://localhost:8000/post', data, { withCredentials: true });
+      const response = await axios.post(`${apiUrl}/post`, data, { withCredentials: true });
       navigate(`/dashboard/community/post/${response.data.postId}`);
     } catch (err){
       console.log(err);

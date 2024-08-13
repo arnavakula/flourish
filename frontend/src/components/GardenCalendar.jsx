@@ -89,6 +89,7 @@ const capitalize = (s) => {
 const GardenCalendar = () => {
     const { authUser } = useAuth();
     const { getItem, setItem } = useLocalStorage();
+    const apiUrl = import.meta.env.VITE_API_URL;
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [disableAddButton, setDisableAddButton] = useState(true);
@@ -100,23 +101,27 @@ const GardenCalendar = () => {
     const [formInfo, setFormInfo] = useState({'quantity': 1});
 
     const getUserCrops = async () => {
-        const userCrops = await axios.get(`http://localhost:8000/crop/user/${authUser}`, { withCredentials: true });
+        try{
+            const userCrops = await axios.get(`${apiUrl}/crop/user/${authUser}`, { withCredentials: true });
 
-        const sortedCrops = userCrops.data.crops.reduce((acc, item) => {
-            if (!acc[item.crop.name]) {
-                acc[item.crop.name] = [];
-            }
-            acc[item.crop.name].push(item);
-            return acc;
-        }, {});
+            const sortedCrops = userCrops.data.crops.reduce((acc, item) => {
+                if (!acc[item.crop.name]) {
+                    acc[item.crop.name] = [];
+                }
+                acc[item.crop.name].push(item);
+                return acc;
+            }, {});
 
-        setUserCrops(sortedCrops);
+            setUserCrops(sortedCrops);
+        } catch(err){
+            console.log(err);
+        }
     }
 
 
     useEffect(() => {
         const fetchCrops = async () => {
-            const response = await axios.get('http://localhost:8000/crop', { withCredentials: true });
+            const response = await axios.get(`${apiUrl}/crop`, { withCredentials: true });
             setCrops(response.data.crops.sort((a, b) => a.name.localeCompare(b.name)));
 
             getUserCrops();
@@ -138,7 +143,7 @@ const GardenCalendar = () => {
     const addCrop = async (evt) => {
         evt.preventDefault();
 
-        await axios.post('http://localhost:8000/crop', {
+        await axios.post(`${apiUrl}/crop`, {
             'userId': authUser,
             'cropId': evt.target.crop.value,
             'quantity': evt.target.quantity.value,

@@ -21,6 +21,7 @@ const ViewSinglePost = () => {
     const [comment, setComment] = useState('');
     const [showCommentButton, setShowCommentButton] = useState(false);
     const navigate = useNavigate();
+    const apiUrl = import.meta.env.VITE_API_URL;
 
     const tagMap = {
         'Advice': '#D4EDDA',
@@ -31,7 +32,7 @@ const ViewSinglePost = () => {
 
     useEffect(() => {
         const loadPosts = async () => {
-            const response = await fetch(`http://localhost:8000/post/${postId}`, {
+            const response = await fetch(`${apiUrl}/post/${postId}`, {
                 method: 'GET'
             })
                 .then(response => response.json())

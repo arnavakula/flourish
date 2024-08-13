@@ -11,11 +11,12 @@ const LoginForm = () => {
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState(null);
     const navigate = useNavigate();
+    const apiUrl = import.meta.env.VITE_API_URL;
     
     const handleSubmit = async (evt) => {
         try {
             evt.preventDefault();
-            const response = await axios.post('http://localhost:8000/user/login', {
+            const response = await axios.post(`${apiUrl}/user/login`, {
                 username,
                 password
             }, { withCredentials: true });
