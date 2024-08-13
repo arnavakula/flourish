@@ -2,7 +2,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
 import useAuth from '../hooks/useAuth';
-import FlashMessage from 'react-flash-message';
 
 
 const RegisterForm = () => {
@@ -41,11 +40,11 @@ const RegisterForm = () => {
   
           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           {errorMessage && (
-              <FlashMessage duration={5000}>
+              <div duration={5000}>
                 <div className="bg-red-500 text-white text-center py-2 rounded-md mb-4">
                   {errorMessage}
                 </div>
-              </FlashMessage>
+              </div>
             )}
             <form onSubmit={handleSubmit} className="space-y-6">
                 <div className='flex flex-row'>
