@@ -1,8 +1,12 @@
+require('dotenv').config();
+
 const mongoose = require('mongoose');
 const Crop = require('../models/crop');
 const data = require('./seed.json');
 
-const dbUrl ='mongodb://127.0.0.1:27017/plantDisease';
+const dbUrl = 'mongodb+srv://akulaarnav:GnPlzy1EHffR3TZr@flourish-cluster.i5huq.mongodb.net/?retryWrites=true&w=majority&appName=flourish-cluster';
+
+
 
 mongoose.connect(dbUrl);
 const db = mongoose.connection;

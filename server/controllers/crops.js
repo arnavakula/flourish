@@ -51,7 +51,8 @@ module.exports.addCrop = async (req, res) => {
 
 module.exports.getUserCrops = async (req, res) => {
     const { userId } = req.params;
-    const user = await User.findById(userId).populate('crops.crop');
+    const user = await User.findById(userId).populate('crops.crop')
+
 
     res.json({ crops: user.crops });
 }

@@ -7,7 +7,6 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import YourGarden from './components/YourGarden';
-import AllPlants from './components/AllPlants';
 import Community from './components/Community';
 import ViewPosts from './components/ViewPosts';
 import CreatePost from './components/CreatePost';
@@ -32,7 +31,6 @@ function App() {
               </Route>
               <Route path='calendar' element={ <YourGarden /> } />
               <Route path='popular' element={ <YourGarden /> } />
-              <Route path='all-plants' element={ <AllPlants /> } />
               <Route path='community' element={ <Community /> }>
                 <Route index element={<Navigate to="view?sort=all" replace />} />
                 <Route path='view' element={ <ViewPosts /> } />

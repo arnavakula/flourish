@@ -10,13 +10,12 @@ const session = require('express-session');
 const cors = require('cors');
 
 const userRoutes = require('./routes/userRoutes');
-const plantRoutes = require('./routes/plantRoutes');
 const postRoutes = require('./routes/postRoutes');
 const commentRoutes = require('./routes/commentRoutes');
 const cropRoutes = require('./routes/cropRoutes');
 
-const dbUrl ='mongodb://127.0.0.1:27017/plantDisease';
-const port = 8000;
+const dbUrl = process.env.DB_URL;
+const port = process.env.PORT;
 
 app = express();
 
@@ -29,7 +28,7 @@ db.once('open', () => {
 
 app.use(express.static('public'));
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: process.env.FRONTEND_URL,
     credentials: true,
 }));
 
@@ -37,7 +36,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json());
 
 app.use(session({
-    secret: 'replacethissecret',
+    secret: process.env.SESSION_SECRET,
     name: 'session',
     resave: false,
     saveUninitialized: true,
@@ -57,9 +56,7 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-
 app.use('/user', userRoutes);
-app.use('/plant', plantRoutes);
 app.use('/post', postRoutes);
 app.use('/comment', commentRoutes);
 app.use('/crop', cropRoutes);
