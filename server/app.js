@@ -61,6 +61,10 @@ app.use('/post', postRoutes);
 app.use('/comment', commentRoutes);
 app.use('/crop', cropRoutes);
 
+app.get('/', async (req, res) => {
+    res.status(200).json({ message: 'successfully found home route!'})
+})
+
 app.all('*', (req, res, next) => {
     console.log('FALLBACK ERROR');
     next();
