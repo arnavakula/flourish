@@ -29,6 +29,7 @@ const Home = () => {
             <div id="section2" ref={section2Ref} className="h-[75vh] flex flex-row bg-white">
                 <div className="w-[40%] pt-[5vh] flex flex-col gap-[0.75em]">
                     <h2 className="ml-[4rem] text-[4vw] text-[#0f491e] font-medium">Watch a demo</h2>
+                    <p className="ml-[4rem] text-[1vw] text-[#0f491e] font-light italic">In progress, will add soon...</p>
                 </div>
             </div>
         </div>

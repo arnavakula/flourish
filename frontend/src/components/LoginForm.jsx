@@ -2,12 +2,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
 import useAuth from '../hooks/useAuth';
+import FlashMessage from 'react-flash-message';
 
 
 const LoginForm = () => {
     const { login } = useAuth();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [errorMessage, setErrorMessage] = useState(null);
     const navigate = useNavigate();
     
     const handleSubmit = async (evt) => {
@@ -22,12 +24,15 @@ const LoginForm = () => {
             navigate('/dashboard');
         } catch(err) {
             console.error('Login error:', err);
+            setErrorMessage('Incorrect username or password');
+            setUsername('');
+            setPassword('');
         }
     }
 
     return (
       <>
-      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+        <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
             <img
               alt="Your Company"
@@ -38,8 +43,15 @@ const LoginForm = () => {
               Sign in to your account
             </h2>
           </div>
-  
+    
           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+            {errorMessage && (
+              <FlashMessage duration={5000}>
+                <div className="bg-red-500 text-white text-center py-2 rounded-md mb-4">
+                  {errorMessage}
+                </div>
+              </FlashMessage>
+            )}
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label htmlFor="username" className="block text-sm font-medium leading-6 text-gray-900">
@@ -47,6 +59,7 @@ const LoginForm = () => {
                 </label>
                 <div className="mt-2">
                   <input
+                    value={username}
                     id="username"
                     name="username"
                     required
@@ -56,7 +69,7 @@ const LoginForm = () => {
                   />
                 </div>
               </div>
-  
+    
               <div>
                 <div className="flex items-center justify-between">
                   <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
@@ -70,6 +83,7 @@ const LoginForm = () => {
                 </div>
                 <div className="mt-2">
                   <input
+                    value={password}
                     id="password"
                     name="password"
                     type="password"
@@ -80,17 +94,17 @@ const LoginForm = () => {
                   />
                 </div>
               </div>
-  
+    
               <div>
                 <button
                   type="submit"
-                        className="flex w-full justify-center rounded-md bg-[#134b1f] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#14421d] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                  className="flex w-full justify-center rounded-md bg-[#134b1f] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#14421d] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
                   Sign in
                 </button>
               </div>
             </form>
-  
+    
             <p className="mt-10 text-center text-sm text-gray-500">
               New to Flourish?{' '}
               <Link to="/register" className="font-semibold leading-6 text-[#134b1f] hover:text-[#14421d]">
@@ -100,7 +114,8 @@ const LoginForm = () => {
           </div>
         </div>
       </>
-    )
+    );
+    
   }
 
   export default LoginForm;

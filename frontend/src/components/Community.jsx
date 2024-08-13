@@ -33,7 +33,6 @@ const Community = () => {
         <div className="flex w-[100vw] min-h-[14vh] bg-[#14452f] border-b-[0.5px] text-[#bbb0b8]">
             <div className="w-[20%] flex flex-col items-center justify-center">
                 <p className='text-[#bbb0b8] font-light'>Welcome to the community forum!</p>
-                <p className='font-bold'>Temp Temp</p>
             </div>
         </div>
         <div className='w-[100vw] h-[76vh] flex flex-row p-4 bg-[#f5f4f2]'>

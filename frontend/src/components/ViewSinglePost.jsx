@@ -96,11 +96,11 @@ const ViewSinglePost = () => {
                      </h2>
                         <p>{post.text}</p>
                         <div className='flex gap-[5px]'>
-                            <button onClick={(evt) => toggleVote(evt, 'like')} className='border p-1' name='like'>
+                            <button onClick={(evt) => toggleVote(evt, 'like')} className=' p-1' name='like'>
                                 {post.likes.includes(authUser) ? <ThumbUpAltIcon /> : <ThumbUpOffAltIcon />}
                                 <span className='px-1'>{post.likes.length}</span>
                             </button>
-                            <button onClick={(evt) => toggleVote(evt, 'dislike')} className='border p-1' name='dislike'>
+                            <button onClick={(evt) => toggleVote(evt, 'dislike')} className=' p-1' name='dislike'>
                                 {post.dislikes.includes(authUser) ? <ThumbDownAltIcon /> : <ThumbDownOffAltIcon />}
                                 <span className='px-1'>{post.dislikes.length}</span>
                             </button>
