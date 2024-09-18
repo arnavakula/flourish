@@ -26,10 +26,21 @@ const Home = () => {
                 <img className='ml-[5%] w-[40%] mb-[10%]' src={background1}></img>
             </div>
 
-            <div id="section2" ref={section2Ref} className="h-[75vh] flex flex-row bg-white">
-                <div className="w-[40%] pt-[5vh] flex flex-col gap-[0.75em]">
-                    <h2 className="ml-[4rem] text-[4vw] text-[#0f491e] font-medium">Watch a demo</h2>
-                    <p className="ml-[4rem] text-[1vw] text-[#0f491e] font-light italic">In progress, will add soon...</p>
+            <div className='h-[75vh] bg-white'>
+                <div id="section2" ref={section2Ref} className="flex flex-row">
+                    <div className="w-[40%] pt-[5vh] flex flex-col gap-[0.75em]">
+                        <h2 className="ml-[4rem] text-[4vw] text-[#0f491e] font-medium">Watch a demo</h2>
+
+                    </div>
+                </div>
+                <div className="w-[100vw]">
+                    <iframe
+                        src='https://www.youtube.com/embed/ye0ETYfRlrM'
+                        allow='autoplay; encrypted-media'
+                        allowfullscreen
+                        title='video'
+                        className='border-2 border-black w-[50vw] h-[50vh] mx-auto'
+                    />
                 </div>
             </div>
         </div>
