@@ -46,7 +46,7 @@ const ViewSinglePost = () => {
         evt.preventDefault();
         evt.stopPropagation();
 
-        const response = await axios.post(`http://localhost:8000/post/vote`, {
+        const response = await axios.post(`${apiUrl}/post/vote`, {
             'postId': post._id,
             'userId': authUser,
             voteType
@@ -57,7 +57,7 @@ const ViewSinglePost = () => {
 
     const handleSubmit = async (evt) => {
         evt.preventDefault();
-        const response = await axios.post(`http://localhost:8000/comment`, {
+        const response = await axios.post(`${apiUrl}/comment`, {
             'postId': post._id,
             'userId': authUser,
             'text': evt.target.comment.value
@@ -72,7 +72,7 @@ const ViewSinglePost = () => {
 
     const deleteComment = async (commentId) => {
         console.log('deleting!', commentId);
-        const response = await axios.patch(`http://localhost:8000/comment`, {
+        const response = await axios.patch(`${apiUrl}/comment`, {
             'postId': post._id,
             'commentId': commentId,
         }, { withCredentials: true });
