@@ -5,6 +5,7 @@ import useLocalStorage from '../hooks/useLocalStorage';
 export const AuthContext = createContext();
 
 export function AuthProvider({ children }){
+    const apiUrl = import.meta.env.VITE_API_URL;
     const { getItem, setItem, removeItem } = useLocalStorage();
     const [authUser, setAuthUser] = useState(getItem('user'));
     
@@ -12,7 +13,7 @@ export function AuthProvider({ children }){
     useEffect(() => {
        const fetchAuthStatus = async () => {
             try {
-                const response = await axios.get('http://localhost:8000/user/status', { withCredentials: true });
+                const response = await axios.get(`${apiUrl}/user/status`, { withCredentials: true });
             
                 if(response.data.authenticated){
                     setAuthUser(response.data.user);
