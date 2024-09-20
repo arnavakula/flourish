@@ -17,7 +17,6 @@ const Register = () => {
 
     return (
         <>
-            <NavBar />
             <RegisterForm />
         </>
     )

@@ -1,17 +1,21 @@
-import React from 'react';
-import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
-import useLocalStorage from '../hooks/useLocalStorage';
+import  { useState } from 'react';
+import CloseIcon from '@mui/icons-material/Close';
+import MenuIcon from '@mui/icons-material/Menu';
+import { Link } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
+import axios from 'axios';
 
-
-
-
-const NavBar = ({ scrollToSection, section1Ref, section2Ref, section3Ref }) => {
+const NavBar = ({ sections, activeSection, scrollToSection }) => {
     const { authUser, logout } = useAuth();
-    const { getItem, removeItem } = useLocalStorage();
-    const navigate = useNavigate();
+    const [isExpanded, setIsExpanded] = useState(false);
     const apiUrl = import.meta.env.VITE_API_URL;
+
+    console.log(authUser);
+
+    const handleScroll = (section) => {
+        scrollToSection(section);
+        setIsExpanded(false);
+    };
 
     const handleLogout = async () => {
         try {
@@ -24,39 +28,41 @@ const NavBar = ({ scrollToSection, section1Ref, section2Ref, section3Ref }) => {
         }
     };
 
-    const openDashboard = () => {
-        if (authUser) {
-            navigate('/dashboard');
-        } else {
-            navigate('/login');
-        }
-    }
-
     return (
-        <nav className="w-[100vw] h-[8vh] flex flex-row items-center text-[#285a34]">
-            <h2 className="font-bold text-[1.6em] mx-[4rem]">Flourish</h2>
-
-            <div className='flex gap-[3em] font-medium text-[1.1em]'>
-                <Link to='/'><h2 className='cursor-pointer'>Home</h2></Link>
-                {/* <h2 className='cursor-pointer' onClick={() => scrollToSection(section1Ref)}>Home</h2> */}
-                {/* <h2 className='cursor-pointer' onClick={() => scrollToSection(section2Ref)}>About Us</h2> */}
-                <Link to='/dashboard'><h2 className='cursor-pointer'>Dashboard</h2></Link>
+        <div className='fixed w-full h-[8vh] bg-[#285a34] bg-opacity-90 flex items-center text-white z-10'>
+            <div className='cursor-pointer z-10 my-auto pl-[4vw]'>
+                {isExpanded ? (
+                    <CloseIcon onClick={() => setIsExpanded(false)} />
+                ) : (
+                    <MenuIcon onClick={() => setIsExpanded(true)} />
+                )}
             </div>
 
-            {authUser ? (
 
-                <ul className="flex gap-[2em] ml-auto pr-[2vw] font-medium text-[1.2em]">
-                    <li><a onClick={handleLogout} href='#'>Logout</a></li>
-                </ul>
-            ) :
-                (
-                    <ul className="flex gap-[2em] ml-auto pr-[2vw] font-medium text-[1.2em]">
-                        <li><Link to='/login'>Login</Link></li>
-                        <li><Link to='/register'>Register</Link></li>
-                    </ul>
-                )
-            }
-        </nav>
+            {isExpanded && (
+                <nav className='absolute top-0 left-0 w-[40vw] h-[100vh] bg-black bg-opacity-80 flex flex-col gap-[2vw] z-5 font-source text-[1.3rem] text-[#c4c4c4]'>
+                    {sections.map(({ id, label }) => (
+                        <h3 key={id} onClick={() => handleScroll(id)} className={`cursor-pointer first:mt-[8vh] pl-[10vw] ${
+                                activeSection === id && 'text-white'
+                            }`}
+                        >
+                            {label}
+                        </h3>
+                    ))}
+
+                    <hr className='w-[70%] mx-auto text-gray-200 border-[1px] border-gray-200 opacity-20' />
+
+                    {authUser ? (
+                        <h3 onClick={handleLogout} className='cursor-pointer pl-[10vw]'>Logout</h3>
+                    ) : (
+                        <>
+                        <Link to='/login'><h3 className='cursor-pointer pl-[10vw]'>Login</h3></Link>
+                        <Link to='/register'><h3 className='cursor-pointer pl-[10vw]'>Signup</h3></Link>
+                        </>
+                    )}
+                </nav>
+            )}
+        </div>
     );
 };
 

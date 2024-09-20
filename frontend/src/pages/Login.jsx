@@ -17,7 +17,6 @@ const Login = () => {
 
     return (
         <div>
-            <NavBar />
             <LoginForm />
         </div>
     )
