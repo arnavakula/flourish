@@ -1,9 +1,9 @@
 const About = ({ forwardRef }) => {
     return (
-        <div ref={forwardRef} id='about' className='border-[2px] border-[#ddd0c8]'>
-            <h2 className='font-bold text-[2.25rem] mt-[8vh] text-center text-[#285a34]'>About Flourish</h2>
+        <div ref={forwardRef} id='about' className='border-[2px] border-[#ddd0c8] font-source'>
+            <h2 className='font-bold text-[2.25rem] mt-[8vh] text-center text-[#285a34] font-alegreya'>About Flourish</h2>
             
-            <div className='px-6 mt-[1vh] flex flex-col gap-[2vh] text-[1.2rem]'>
+            <div className='px-6 mt-[1vh] flex flex-col gap-[3vh] text-[1.2rem]'>
                 <p>Flourish is an AI-driven garden planning and management tool.</p>
   
                 <div className='flex justify-center'>

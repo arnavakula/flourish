@@ -8,8 +8,8 @@ const LandingPage = ({ forwardRef, scrollToSection }) => {
             <div ref={forwardRef} id='home' className='h-fit text-[#285a34] font-semibold font-raleway text-center '>
                 <div className='pt-[8vh]'></div>
                 <div className='h-full flex flex-col items-center mt-[6vh] '>
-                    <h2 className='font-bold text-[2.25rem]'>Introducing Flourish</h2>
-                    <h3 className='text-[1.3rem]'>Grow with purpose, bloom with care</h3>
+                    <h2 className='font-bold text-[2.5rem] font-alegreya'>Introducing Flourish</h2>
+                    <h3 className='italic text-[1.5rem] font-alegreya'>Grow with purpose, bloom with care</h3>
                     <img className='h-[60vh] max-w-full' src={PlantPot} />
                     <div className='flex gap-[4vw]'>
                         <Link to='/register' >

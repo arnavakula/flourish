@@ -6,6 +6,7 @@ import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
 import LandingPage from '../components/LandingPage';
 import Features from '../components/Features';
 import About from '../components/About';
+import Contact from '../components/Contact';
 
 const Home = () => {
     const homeRef = useRef(null);
@@ -57,12 +58,10 @@ const Home = () => {
 
             <About forwardRef={aboutRef} />
 
-      
-
             <Features forwardRef={featuresRef} />
 
             
-            <div ref={contactRef} id='contact' className='h-[75vh]'>Contact</div>
+            <Contact forwardRef={contactRef}/>
         </div>
     );
 };
