@@ -10,8 +10,8 @@ const Features = ({ forwardRef }) => {
         {title: 'Community forum', image: Community}
     ]
     return (
-        <div ref={forwardRef} id='features' className='h font-raleway border-black border-2 '>
-            <h2 className='font-bold text-[2.25rem] mt-[8vh] text-center'>Features</h2>
+        <div ref={forwardRef} id='features' className='h font-raleway border-[#ddd0c8] border-2 '>
+            <h2 className='font-bold text-[2.25rem] mt-[8vh] text-center text-[#285a34]'>Features</h2>
 
             <div className='flex flex-col gap-[2vh] px-3 font-alegreya'>
                 {features.map((feature, i) => (

@@ -28,7 +28,7 @@ const NavBar = ({ sections, activeSection, scrollToSection }) => {
 
     return (
         <>
-        <div className='fixed w-full h-[8vh] bg-[#285a34] bg-opacity-80 flex items-center text-white z-10'>
+        <div className='fixed w-full h-[8vh] bg-[#285a34] flex items-center text-white z-10'>
             <div className='cursor-pointer z-10 my-auto pl-[4vw]'>
                 {isExpanded ? (
                     <CloseIcon onClick={() => setIsExpanded(false)} />

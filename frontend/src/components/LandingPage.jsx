@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const LandingPage = ({ forwardRef, scrollToSection }) => {
     return (
-        <div className='border-2 border-black'>
+        <div>
             <div ref={forwardRef} id='home' className='h-fit text-[#285a34] font-semibold font-raleway text-center '>
                 <div className='pt-[8vh]'></div>
                 <div className='h-full flex flex-col items-center mt-[6vh] '>
