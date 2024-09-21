@@ -32,14 +32,17 @@ const LoginForm = () => {
 
     return (
       <>
-        <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+        <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 mt-20">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
             <img
               alt="Your Company"
               src="https://tailwindui.com/img/logos/mark.svg?color=green&shade=900"
               className="mx-auto h-10 w-auto"
             />
-            <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+            <h2 className="mt-10 text-center text-5xl font-bold leading-9 tracking-tight text-gray-900 font-source">
+              Welcome Back
+            </h2>
+            <h2 className=" text-center text-3xl font-bold leading-9 tracking-tight text-gray-900 font-sourc">
               Sign in to your account
             </h2>
           </div>

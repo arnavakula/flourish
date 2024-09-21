@@ -10,8 +10,6 @@ const NavBar = ({ sections, activeSection, scrollToSection }) => {
     const [isExpanded, setIsExpanded] = useState(false);
     const apiUrl = import.meta.env.VITE_API_URL;
 
-    console.log(authUser);
-
     const handleScroll = (section) => {
         scrollToSection(section);
         setIsExpanded(false);
@@ -29,7 +27,8 @@ const NavBar = ({ sections, activeSection, scrollToSection }) => {
     };
 
     return (
-        <div className='fixed w-full h-[8vh] bg-[#285a34] bg-opacity-90 flex items-center text-white z-10'>
+        <>
+        <div className='fixed w-full h-[8vh] bg-[#285a34] bg-opacit flex items-center text-white z-10'>
             <div className='cursor-pointer z-10 my-auto pl-[4vw]'>
                 {isExpanded ? (
                     <CloseIcon onClick={() => setIsExpanded(false)} />
@@ -38,9 +37,9 @@ const NavBar = ({ sections, activeSection, scrollToSection }) => {
                 )}
             </div>
 
-
+                    
             {isExpanded && (
-                <nav className='absolute top-0 left-0 w-[40vw] h-[100vh] bg-black bg-opacity-80 flex flex-col gap-[2vw] z-5 font-source text-[1.3rem] text-[#c4c4c4]'>
+                <nav className='absolute top-0 left-0 w-[40vw] h-[100vh] bg-black bg-opacity-90 flex flex-col gap-[2vw] z-5 font-source text-[1.3rem] text-[#c4c4c4]'>
                     {sections.map(({ id, label }) => (
                         <h3 key={id} onClick={() => handleScroll(id)} className={`cursor-pointer first:mt-[8vh] pl-[10vw] ${
                                 activeSection === id && 'text-white'
@@ -60,9 +59,13 @@ const NavBar = ({ sections, activeSection, scrollToSection }) => {
                         <Link to='/register'><h3 className='cursor-pointer pl-[10vw]'>Signup</h3></Link>
                         </>
                     )}
+
+                    <Link to='/dashboard'><h3 className='cursor-pointer pl-[10vw]'></h3></Link>
                 </nav>
             )}
         </div>
+        <div className='pt-[8vh]'></div>
+        </>
     );
 };
 

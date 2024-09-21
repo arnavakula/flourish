@@ -7,7 +7,8 @@ module.exports = {
     extend: {
       fontFamily: {
         alegreya: ['"Alegreya Sans SC"', 'sans'],
-        source: ['"Source Sans 3"', 'sans']
+        source: ['"Source Sans 3"', 'sans'],
+        raleway: ['"Raleway"', 'serif']
       }
     },
   },
