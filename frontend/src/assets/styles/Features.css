@@ -1,0 +1,11 @@
+.image-3d img {
+    transform: perspective(1000px) rotateY(20deg); 
+    transition: transform 0.5s;
+}
+
+.image-3d-rev img {
+    transform: perspective(1000px) rotateY(-20deg); 
+    transition: transform 0.5s;
+}
+
+
