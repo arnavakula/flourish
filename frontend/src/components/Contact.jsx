@@ -8,8 +8,8 @@ const Contact = ({ forwardRef }) => {
     ]
     return (
         <div ref={forwardRef} className='contact mb-[3vh] text-[1.1rem]'>  
-            <div className='w-[90vw] bg-white mx-auto rounded-3xl mt-[8vh] p-4 font-source shadow-lg'>
-                <h2 className='font-bold text-[2rem] text-[#285a34] font-alegreya'>Contact Us</h2>
+            <div className='w-[90vw] max-w-[600px] bg-white mx-auto rounded-3xl mt-[8vh] p-4 lg:p-6 font-source shadow-lg'>
+                <h2 className='font-bold text-[2.5rem] lg:text-[3rem] text-[#285a34] font-alegreya'>Contact Us</h2>
                 <p className='mb-[2vh]'>Please contact for any questions or to learn more about Flourish!</p>
                 
                 {contactOptions.map((contact, i) => (

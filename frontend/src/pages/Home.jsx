@@ -36,7 +36,7 @@ const Home = () => {
                     }
                 });
             },
-            { threshold: 1 } 
+            { threshold: 0.75 } 
         );
 
         sections.forEach(({ ref }) => {
