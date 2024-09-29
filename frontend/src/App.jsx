@@ -13,7 +13,6 @@ import CreatePost from './components/CreatePost';
 import ViewSinglePost from './components/ViewSinglePost';
 import GardenCalendar from './components/GardenCalendar';
 
-
 function App() {
   return (
     <>

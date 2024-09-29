@@ -47,7 +47,7 @@ const NavBar = ({ sections, activeSection, scrollToSection }) => {
                         </h3>
                     ))}
                 </div>
-                <div className='hidden lg:flex gap-[4vh]'>
+                <div className='hidden lg:flex gap-[2vw]'>
                 {authUser ? (
                         <h3 onClick={handleLogout} className='cursor-pointer hover:scale-110 hover:text-white hover:brightness-125 transition duration-150'>Logout</h3>
                     ) : (
@@ -57,8 +57,8 @@ const NavBar = ({ sections, activeSection, scrollToSection }) => {
                         </>
                     )}
                     <Link to='/dashboard'>
-                        <div className='bg-[#285a34] w-min rounded-full hover:scale-110 hover:text-white hover:brightness-125 transition duration-150 transition ease-in-out duration-150'>
-                            <h3 className='cursor-pointer text-white'>Dashboard</h3>
+                        <div className='bg-white text-[#285a34] w-min ml-[-1vw] px-[1vw] rounded-full hover:scale-110 hover:brightness-125 transition duration-150 transition ease-in-out duration-150'>
+                            <h3 className='cursor-pointer'>Dashboard</h3>
                         </div>
                     </Link>
                 </div>

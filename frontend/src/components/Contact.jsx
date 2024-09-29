@@ -13,7 +13,7 @@ const Contact = ({ forwardRef }) => {
                 <p className='mb-[2vh]'>Please contact for any questions or to learn more about Flourish!</p>
                 
                 {contactOptions.map((contact, i) => (
-                    <div className='flex gap-[2vw] items-center text-[#285a34]'>
+                    <div key={i} className='flex gap-[2vw] items-center text-[#285a34]'>
                         {contact.icon}
                         <p className='text-black'>{contact.print}</p>
                     </div>
