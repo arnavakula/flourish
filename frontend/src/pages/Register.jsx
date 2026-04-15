@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router-dom';
-import NavBar from '../components/NavBar';
 import RegisterForm from '../components/RegisterForm';
 import useAuth from '../hooks/useAuth';
 import { useEffect } from 'react';

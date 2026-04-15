@@ -3,7 +3,8 @@ import { useState } from 'react';
 import axios from 'axios';
 import useAuth from '../hooks/useAuth';
 import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
-import EucBackdrop from '../assets/images/euc-backdrop.png'
+import EucBackdrop from '../assets/images/euc-backdrop.jpg'
+import Logo from '../assets/images/logo.svg'
 
 
 const LoginForm = () => {
@@ -34,9 +35,9 @@ const LoginForm = () => {
 
   return (
     <>
-    <div className='flex flex-row-reverse max-h-[100vh]'>
-    <img src={EucBackdrop} className='w-[50%] object-cover hidden xl:block'/>
-      <div className="flex h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 w-[50%]  font-source">
+    <div className='flex flex-row-reverse min-h-screen max-h-screen bg-[#fafaf7]'>
+    <img src={EucBackdrop} alt='' loading='eager' fetchpriority='high' className='w-[50%] object-cover hidden xl:block'/>
+      <div className="flex h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 w-[50%] font-source">
         <div className='scale-110 px-6'>
           <Link to='/' className='flex items-center gap-[0.25vw]'>
           <ArrowBackRoundedIcon fontSize='small '/>
@@ -45,16 +46,17 @@ const LoginForm = () => {
         </div>
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
-            alt="Your Company"
-            src="https://tailwindui.com/img/logos/mark.svg?color=green&shade=900"
-            className="mx-auto h-10 w-auto"
+            alt="Flourish"
+            src={Logo}
+            className="mx-auto h-12 w-auto"
           />
-          <h2 className="mt-10 text-center text-3xl font-bold leading-9 tracking-tight text-gray-900 font-sourc">
-            Sign in to your account
+          <h2 className="mt-6 text-center text-3xl font-bold leading-9 tracking-tight text-gray-900">
+            Welcome back
           </h2>
+          <p className="mt-2 text-center text-sm text-gray-500">Sign in to your Flourish account</p>
         </div>
 
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+        <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-sm">
           {errorMessage && (
             <div>
               <div className="bg-red-500 text-white text-center py-2 rounded-md mb-4">
@@ -74,8 +76,9 @@ const LoginForm = () => {
                   name="username"
                   required
                   autoComplete="username"
+                  placeholder="yourname"
                   onChange={e => setUsername(e.target.value)}
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#134b1f] sm:text-sm sm:leading-6 transition-shadow"
                 />
               </div>
             </div>
@@ -99,8 +102,9 @@ const LoginForm = () => {
                   type="password"
                   required
                   autoComplete="current-password"
+                  placeholder="••••••••"
                   onChange={e => setPassword(e.target.value)}
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#134b1f] sm:text-sm sm:leading-6 transition-shadow"
                 />
               </div>
             </div>
@@ -108,7 +112,7 @@ const LoginForm = () => {
             <div>
               <button
                 type="submit"
-                className="flex w-full justify-center rounded-md bg-[#134b1f] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#14421d] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className="flex w-full justify-center rounded-md bg-[#134b1f] px-3 py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#14421d] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#134b1f] transition-colors"
               >
                 Sign in
               </button>

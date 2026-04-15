@@ -3,6 +3,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import useAuth from '../hooks/useAuth';
 import LeafBackdrop from '../assets/images/leaf-backdrop.jpg'
+import Logo from '../assets/images/logo.svg'
 import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
 
 
@@ -28,9 +29,9 @@ const RegisterForm = () => {
 
     return (
       <>
-      <div className='flex flex-row-reverse max-h-[100vh]'>
-      <img src={LeafBackdrop} className='w-[50%] object-cover hidden xl:block'/>
-      <div className='flex flex-1 flex-col justify- px-6 py-12 lg:px-8'>
+      <div className='flex flex-row-reverse min-h-screen max-h-screen bg-[#fafaf7] font-source'>
+      <img src={LeafBackdrop} alt='' loading='eager' fetchpriority='high' className='w-[50%] object-cover hidden xl:block'/>
+      <div className='flex flex-1 flex-col justify-center px-6 py-12 lg:px-8'>
          <div className='scale-110 px-6'>
           <Link to='/' className='flex items-center gap-[0.25vw]'>
           <ArrowBackRoundedIcon fontSize='small '/>
@@ -40,25 +41,24 @@ const RegisterForm = () => {
           <div className='sm:mx-auto sm:w-full sm:max-w-sm'>
             <img
               alt='Flourish'
-              src='https://tailwindui.com/img/logos/mark.svg?color=green&shade=900'
-              className='mx-auto h-10 w-auto'
+              src={Logo}
+              className='mx-auto h-12 w-auto'
             />
-            <h2 className='mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900'>
-              Register for an account
+            <h2 className='mt-6 text-center text-3xl font-bold leading-9 tracking-tight text-gray-900'>
+              Create your account
             </h2>
+            <p className='mt-2 text-center text-sm text-gray-500'>Join the Flourish community</p>
           </div>
-  
-          <div className='mt-10 sm:mx-auto sm:w-full sm:max-w-sm'>
+
+          <div className='mt-8 sm:mx-auto sm:w-full sm:max-w-sm'>
           {errorMessage && (
-              <div duration={5000}>
-                <div className='bg-red-500 text-white text-center py-2 rounded-md mb-4'>
-                  {errorMessage}
-                </div>
+              <div className='bg-red-500 text-white text-center py-2 rounded-md mb-4'>
+                {errorMessage}
               </div>
             )}
             <form onSubmit={handleSubmit} className='space-y-6'>
-                <div className='flex flex-row'>
-                    <div>
+                <div className='flex flex-row gap-3'>
+                    <div className='flex-1'>
                         <label htmlFor='first' className='block text-sm font-medium leading-6 text-gray-900'>
                         First Name
                         </label>
@@ -69,13 +69,13 @@ const RegisterForm = () => {
                             required
                             autoComplete='first'
                             onChange={e => setRegisterInfo(prev => ({...prev, 'first': e.target.value}))}
-                            className='block w-[100%] rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                            className='block w-[100%] rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#134b1f] sm:text-sm sm:leading-6 transition-shadow'
                         />
                         
                         </div>
                     </div>
 
-                    <div className='ml-[auto]'>
+                    <div className='flex-1'>
                         <label htmlFor='last' className='block text-sm font-medium leading-6 text-gray-900'>
                         Last Name
                         </label>
@@ -86,7 +86,7 @@ const RegisterForm = () => {
                             required
                             autoComplete='last'
                             onChange={e => setRegisterInfo(prev => ({...prev, 'last': e.target.value}))}
-                            className='block w-[100%] rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                            className='block w-[100%] rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#134b1f] sm:text-sm sm:leading-6 transition-shadow'
                         />
                         
                         </div>
@@ -104,7 +104,7 @@ const RegisterForm = () => {
                     required
                     autoComplete='username'
                     onChange={e => setRegisterInfo(prev => ({...prev, 'username': e.target.value}))}
-                    className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                    className='block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#134b1f] sm:text-sm sm:leading-6 transition-shadow'
                   />
                 </div>
               </div>
@@ -121,7 +121,7 @@ const RegisterForm = () => {
                     required
                     autoComplete='email'
                     onChange={e => setRegisterInfo(prev => ({...prev, 'email': e.target.value}))}
-                    className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                    className='block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#134b1f] sm:text-sm sm:leading-6 transition-shadow'
                   />
                 </div>
               </div>
@@ -145,7 +145,7 @@ const RegisterForm = () => {
                     required
                     autoComplete='current-password'
                     onChange={e => setRegisterInfo(prev => ({...prev, 'password': e.target.value}))}
-                    className='block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                    className='block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#134b1f] sm:text-sm sm:leading-6 transition-shadow'
                   />
                 </div>
               </div>
@@ -153,9 +153,9 @@ const RegisterForm = () => {
               <div>
                 <button
                   type='submit'
-                        className='flex w-full justify-center rounded-md bg-[#134b1f] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#14421d] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
+                        className='flex w-full justify-center rounded-md bg-[#134b1f] px-3 py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-[#14421d] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#134b1f] transition-colors'
                 >
-                  Sign in
+                  Create account
                 </button>
               </div>
             </form>

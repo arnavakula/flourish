@@ -21,7 +21,7 @@ export function AuthProvider({ children }){
                 }
                 
             } catch(err) {
-                console.err('Error fetching authentication status: ', err);
+                console.error('Error fetching authentication status: ', err);
                 setAuthUser(null);
                 removeItem('user');
             }

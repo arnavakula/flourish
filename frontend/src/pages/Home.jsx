@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useMemo } from 'react';
 import NavBar from '../components/NavBar';
 
 
@@ -15,12 +15,12 @@ const Home = () => {
     const contactRef = useRef(null);
     const [activeSection, setActiveSection] = useState('home');
 
-    const sections = [
+    const sections = useMemo(() => ([
         { id: 'home', label: 'Home', ref: homeRef },
         { id: 'about', label: 'About', ref: aboutRef },
         { id: 'features', label: 'Features', ref: featuresRef },
         { id: 'contact', label: 'Contact', ref: contactRef }
-    ];
+    ]), []);
 
     const scrollToSection = (sectionId) => {
         const section = sections.find(sec => sec.id === sectionId);
